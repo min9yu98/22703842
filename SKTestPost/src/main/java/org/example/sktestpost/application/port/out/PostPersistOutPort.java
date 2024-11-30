@@ -10,4 +10,6 @@ public interface PostPersistOutPort {
 	Post findById(Long postId);
 
 	Page<Post> findAll(Pageable pageable);
+
+	Page<Post> findAllByKeyword(Pageable pageable, String keyword);
 }

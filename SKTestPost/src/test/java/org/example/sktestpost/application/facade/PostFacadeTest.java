@@ -1,18 +1,24 @@
 package org.example.sktestpost.application.facade;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.example.sktestpost.common.constants.Constants.*;
 
 import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostListResDTO;
 import org.example.sktestpost.common.dto.response.GetPostResDTO;
+import org.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -107,6 +113,38 @@ class PostFacadeTest {
 		assertThat(result.getViewCount()).isEqualTo(4);
 	}
 
+	@Test
+	@DisplayName("포스트 생성 후 목록 조회")
+	void getPostList() {
+		// given
+		CreatePostResDTO createdPost = createPost();
+
+		// when
+		Pageable pageable = generatePageable(0);
+		GetPostListResDTO result = postFacade.getPostList(pageable);
+
+		// then
+		assertThat(result.getPostList().size()).isEqualTo(1);
+	}
+
+	@Test
+	@DisplayName("포스트 생성 후 검색 조회")
+	void getSearchPostList() {
+		// given
+		CreatePostResDTO createdPost = createPost();
+		String keyword = "테";
+		String keyword2 = "케";
+
+		// when
+		Pageable pageable = generatePageable(0);
+		GetSearchPostListResDTO result = postFacade.getSearchPostList(pageable, keyword);
+		GetSearchPostListResDTO result2 = postFacade.getSearchPostList(pageable, keyword2);
+
+		// then
+		assertThat(result.getPostList().size()).isEqualTo(1);
+		assertThat(result2.getPostList().size()).isEqualTo(0);
+	}
+
 	private CreatePostResDTO createPost() {
 		String title = "테스트 제목";
 		String content = "테스트 내용";
@@ -117,6 +155,10 @@ class PostFacadeTest {
 		createPostReqDTO.setWriterId(writerId);
 
 		return postFacade.createPost(createPostReqDTO);
+	}
+
+	private Pageable generatePageable(int page) {
+		return PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.DESC, PAGE_SORT_CRITERIA));
 	}
 
 }

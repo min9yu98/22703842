@@ -10,6 +10,7 @@ import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.DeletePostResDTO;
 import org.example.sktestpost.common.dto.response.GetPostListResDTO;
 import org.example.sktestpost.common.dto.response.GetPostResDTO;
+import org.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.example.sktestpost.common.response.ResultResponse;
 import org.springframework.data.domain.PageRequest;
@@ -79,6 +80,17 @@ public class PostController {
 		Pageable pageable = generatePageable(page);
 		GetPostListResDTO getPostListResDTO = postUseCase.getPostList(pageable);
 		return ResponseEntity.ok(new ResultResponse(getPostListResDTO));
+	}
+
+	@Operation(summary = "게시글 검색 조회")
+	@GetMapping("/search")
+	public ResponseEntity<ResultResponse> getSearchPostList(
+		@RequestParam(value = "page", defaultValue = "0") int page,
+		@RequestParam(value = "keyword") String keyword) {
+		log.info("get search post list");
+		Pageable pageable = generatePageable(page);
+		GetSearchPostListResDTO getSearchPostListResDTO = postUseCase.getSearchPostList(pageable, keyword);
+		return ResponseEntity.ok(new ResultResponse(getSearchPostListResDTO));
 	}
 
 	private Pageable generatePageable(int page) {

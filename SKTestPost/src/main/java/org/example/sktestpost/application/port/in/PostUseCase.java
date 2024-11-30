@@ -7,6 +7,7 @@ import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.DeletePostResDTO;
 import org.example.sktestpost.common.dto.response.GetPostListResDTO;
 import org.example.sktestpost.common.dto.response.GetPostResDTO;
+import org.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.springframework.data.domain.Pageable;
 
@@ -20,4 +21,6 @@ public interface PostUseCase {
 	GetPostResDTO getPost(Long postId);
 
 	GetPostListResDTO getPostList(Pageable pageable);
+
+	GetSearchPostListResDTO getSearchPostList(Pageable pageable, String keyword);
 }

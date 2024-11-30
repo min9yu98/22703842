@@ -41,4 +41,8 @@ public class PostService {
 	public Page<Post> getPostList(Pageable pageable) {
 		return postPersistOutPort.findAll(pageable);
 	}
+
+	public Page<Post> getSearchPostList(Pageable pageable, String keyword) {
+		return postPersistOutPort.findAllByKeyword(pageable, keyword);
+	}
 }
