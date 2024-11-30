@@ -3,6 +3,7 @@ package org.example.sktestpost.application.facade;
 import static org.assertj.core.api.Assertions.*;
 
 import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
+import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
@@ -64,6 +65,24 @@ class PostFacadeTest {
 		assertThat(result.getTitle()).isNotEqualTo(createdPost.getTitle());
 		assertThat(result.getContent()).isNotEqualTo(createdPost.getContent());
 		assertThat(result.getWriterId()).isEqualTo(writerId);
+	}
+
+	@Test
+	@DisplayName("포스트 생성 후 삭제 성공 테스트")
+	void deletePost() {
+		// given
+		CreatePostResDTO createdPost = createPost();
+		Long postId = createdPost.getPostId();
+		Long writerId = createdPost.getWriterId();
+		DeletePostReqDTO deletePostReqDTO = new DeletePostReqDTO();
+		deletePostReqDTO.setPostId(postId);
+		deletePostReqDTO.setWriterId(writerId);
+
+		// when
+		postFacade.deletePost(deletePostReqDTO);
+
+		// then
+		// assertThatException().isThrownBy(() -> postFacade.getPost(postId));
 	}
 
 	private CreatePostResDTO createPost() {

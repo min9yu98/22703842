@@ -2,11 +2,14 @@ package org.example.sktestpost.infra.adapter.in;
 
 import org.example.sktestpost.application.port.in.PostUseCase;
 import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
+import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
+import org.example.sktestpost.common.dto.response.DeletePostResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.example.sktestpost.common.response.ResultResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,4 +46,11 @@ public class PostController {
 		return ResponseEntity.ok(new ResultResponse(updatePostResDTO));
 	}
 
+	@Operation(summary = "게시글 삭제")
+	@DeleteMapping
+	public ResponseEntity<ResultResponse> deletePost(@RequestBody DeletePostReqDTO deletePostReqDTO) {
+		log.info("delete post");
+		DeletePostResDTO deletePostResDTO = postUseCase.deletePost(deletePostReqDTO);
+		return ResponseEntity.ok(new ResultResponse(deletePostResDTO));
+	}
 }

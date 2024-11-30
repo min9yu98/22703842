@@ -1,6 +1,7 @@
 package org.example.sktestpost.domain;
 
 import org.example.sktestpost.common.entity.BaseEntity;
+import org.hibernate.annotations.Where;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Where(clause = "is_deleted = false")
 public class Member extends BaseEntity {
 
 	@Id
