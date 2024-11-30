@@ -1,4 +1,7 @@
-package org.example.sktestpost.common.domain;
+package org.example.sktestpost.domain;
+
+import org.example.sktestpost.common.entity.BaseEntity;
+import org.hibernate.annotations.Where;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Where(clause = "is_deleted = false")
 public class Post extends BaseEntity {
 
 	@Id
@@ -40,5 +44,10 @@ public class Post extends BaseEntity {
 		this.title = title;
 		this.content = content;
 		this.member = member;
+	}
+
+	public void updatePost(String title, String content) {
+		this.title = title;
+		this.content = content;
 	}
 }

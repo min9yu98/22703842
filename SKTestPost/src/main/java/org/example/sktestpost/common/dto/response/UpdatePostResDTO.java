@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CreatePostResDTO {
+public class UpdatePostResDTO {
 
 	private Long postId;
 	private String title;

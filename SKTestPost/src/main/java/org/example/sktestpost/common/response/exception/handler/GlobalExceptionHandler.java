@@ -2,6 +2,8 @@ package org.example.sktestpost.common.response.exception.handler;
 
 import org.example.sktestpost.common.response.error.ErrorResponse;
 import org.example.sktestpost.common.response.exception.BaseException;
+import org.example.sktestpost.common.response.exception.IllegalAccessException;
+import org.example.sktestpost.common.response.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +18,20 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(BaseException.class)
 	public ResponseEntity<ErrorResponse> handleBaseException(BaseException ex) {
 		log.error("handleBaseException", ex);
+		final ErrorResponse response = new ErrorResponse(ex.getErrorCode());
+		return new ResponseEntity<>(response, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
+	}
+
+	@ExceptionHandler(IllegalAccessException.class)
+	public ResponseEntity<ErrorResponse> handleIllegalAccessException(IllegalAccessException ex) {
+		log.error("handleIllegalAccessException", ex);
+		final ErrorResponse response = new ErrorResponse(ex.getErrorCode());
+		return new ResponseEntity<>(response, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
+	}
+
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex) {
+		log.error("handleNotFoundException", ex);
 		final ErrorResponse response = new ErrorResponse(ex.getErrorCode());
 		return new ResponseEntity<>(response, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
 	}
