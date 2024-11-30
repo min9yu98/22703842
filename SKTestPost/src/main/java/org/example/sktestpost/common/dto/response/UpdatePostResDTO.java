@@ -1,6 +1,6 @@
 package org.example.sktestpost.common.dto.response;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ public class UpdatePostResDTO {
 	private Long postId;
 	private String title;
 	private Long writerId;
-	private LocalDateTime createAt;
+	private LocalDate createAt;
 	private String content;
 	private Long postViewCount;
 

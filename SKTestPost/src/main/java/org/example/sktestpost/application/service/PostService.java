@@ -5,6 +5,8 @@ import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.domain.Member;
 import org.example.sktestpost.domain.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -34,5 +36,13 @@ public class PostService {
 		Long deletedPostId = deletingPost.getId();
 		deletingPost.delete();
 		return deletedPostId;
+	}
+
+	public Page<Post> getPostList(Pageable pageable) {
+		return postPersistOutPort.findAll(pageable);
+	}
+
+	public Page<Post> getSearchPostList(Pageable pageable, String keyword) {
+		return postPersistOutPort.findAllByKeyword(pageable, keyword);
 	}
 }

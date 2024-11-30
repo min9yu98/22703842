@@ -7,13 +7,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CreatePostResDTO {
+public class GetPostThumbNailResDTO {
 
 	private Long postId;
 	private String title;
 	private Long writerId;
-	private LocalDate createAt;
-	private String content;
 	private Long postViewCount;
+	private boolean postFileState;
+	private LocalDate createdAt;
 
 }
