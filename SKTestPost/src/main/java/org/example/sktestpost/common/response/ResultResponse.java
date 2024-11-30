@@ -2,20 +2,16 @@ package org.example.sktestpost.common.response;
 
 import static org.example.sktestpost.common.response.ResponseStatus.*;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.Getter;
 
 @Getter
-public class ResultResponse<T> {
+public class ResultResponse {
 
 	private final int code;
 	private final String message;
+	private final Object data;
 
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private final T data;
-
-	public ResultResponse(T data) {
+	public ResultResponse(Object data) {
 		this.code = SUCCESS.getCode();
 		this.message = SUCCESS.getMessage();
 		this.data = data;
