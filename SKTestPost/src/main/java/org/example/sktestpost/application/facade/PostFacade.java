@@ -8,6 +8,7 @@ import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.DeletePostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.example.sktestpost.common.response.error.ErrorCode;
 import org.example.sktestpost.common.response.exception.IllegalAccessException;
@@ -35,7 +36,7 @@ public class PostFacade implements PostUseCase {
 			.postId(createdPost.getId())
 			.title(createdPost.getTitle())
 			.content(createdPost.getContent())
-			.createAt(createdPost.getCreatedAt())
+			.createAt(createdPost.getCreatedAt().toLocalDate())
 			.postViewCount(createdPost.getViewCount())
 			.writerId(currentMemberAsWriter.getId())
 			.build();
@@ -52,7 +53,7 @@ public class PostFacade implements PostUseCase {
 			.postId(updatingPost.getId())
 			.title(updatingPost.getTitle())
 			.content(updatingPost.getContent())
-			.createAt(updatingPost.getCreatedAt())
+			.createAt(updatingPost.getCreatedAt().toLocalDate())
 			.postViewCount(updatingPost.getViewCount())
 			.writerId(currentMember.getId())
 			.build();
@@ -76,5 +77,20 @@ public class PostFacade implements PostUseCase {
 		if (!writer.getId().equals(writerId)) {
 			throw new IllegalAccessException(ErrorCode.IllegalAccess);
 		}
+	}
+
+	@Override
+	@Transactional
+	public GetPostResDTO getPost(Long postId) {
+		Post gettingPost = postService.getPost(postId);
+		gettingPost.increaseViewCount();
+		return GetPostResDTO.builder()
+			.postId(postId)
+			.title(gettingPost.getTitle())
+			.writerId(gettingPost.getMember().getId())
+			.createdAt(gettingPost.getCreatedAt().toLocalDate())
+			.viewCount(gettingPost.getViewCount())
+			.content(gettingPost.getContent())
+			.build();
 	}
 }

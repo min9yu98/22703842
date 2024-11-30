@@ -5,6 +5,7 @@ import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.DeletePostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 
 public interface PostUseCase {
@@ -13,4 +14,6 @@ public interface PostUseCase {
 	UpdatePostResDTO updatePost(UpdatePostReqDTO updatePostReqDTO);
 
 	DeletePostResDTO deletePost(DeletePostReqDTO deletePostReqDTO);
+
+	GetPostResDTO getPost(Long postId);
 }

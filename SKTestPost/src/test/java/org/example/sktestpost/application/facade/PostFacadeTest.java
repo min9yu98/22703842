@@ -6,6 +6,7 @@ import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -82,7 +83,28 @@ class PostFacadeTest {
 		postFacade.deletePost(deletePostReqDTO);
 
 		// then
-		// assertThatException().isThrownBy(() -> postFacade.getPost(postId));
+		assertThatException().isThrownBy(() -> postFacade.getPost(postId));
+	}
+
+	@Test
+	@DisplayName("포스트 생성 후 상세 조회 성공 테스트")
+	void getPost() {
+		// given
+		CreatePostResDTO createdPost = createPost();
+		Long postId = createdPost.getPostId();
+
+		// when
+		GetPostResDTO result1 = postFacade.getPost(postId);
+		GetPostResDTO result2 = postFacade.getPost(postId);
+		GetPostResDTO result3 = postFacade.getPost(postId);
+		GetPostResDTO result = postFacade.getPost(postId);
+
+		// then
+		assertThat(result.getPostId()).isEqualTo(postId);
+		assertThat(result.getTitle()).isEqualTo(createdPost.getTitle());
+		assertThat(result.getContent()).isEqualTo(createdPost.getContent());
+		assertThat(result.getCreatedAt()).isEqualTo(createdPost.getCreateAt());
+		assertThat(result.getViewCount()).isEqualTo(4);
 	}
 
 	private CreatePostResDTO createPost() {

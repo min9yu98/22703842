@@ -7,13 +7,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CreatePostResDTO {
+public class GetPostResDTO {
 
 	private Long postId;
 	private String title;
 	private Long writerId;
-	private LocalDate createAt;
+	private LocalDate createdAt;
+	private Long viewCount;
 	private String content;
-	private Long postViewCount;
 
 }

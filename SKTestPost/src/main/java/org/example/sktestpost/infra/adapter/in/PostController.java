@@ -6,11 +6,14 @@ import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.DeletePostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.example.sktestpost.common.response.ResultResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,5 +55,13 @@ public class PostController {
 		log.info("delete post");
 		DeletePostResDTO deletePostResDTO = postUseCase.deletePost(deletePostReqDTO);
 		return ResponseEntity.ok(new ResultResponse(deletePostResDTO));
+	}
+
+	@Operation(summary = "게시글 상세 조회")
+	@GetMapping("/{postId}")
+	public ResponseEntity<ResultResponse> getPost(@PathVariable("postId") Long postId) {
+		log.info("get post");
+		GetPostResDTO getPostResDTO = postUseCase.getPost(postId);
+		return ResponseEntity.ok(new ResultResponse(getPostResDTO));
 	}
 }
