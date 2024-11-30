@@ -13,8 +13,12 @@ public class MemberService {
 	private final MemberPersistOutPort memberPersistOutPort;
 
 	// 임시 구현
-	public Member getCurrentMember() {
+	public Member getCurrentMemberForTest() {
 		return createMember(Member.builder().name("test").email("test@gmail.com").build());
+	}
+
+	public Member getCurrentMember() {
+		return memberPersistOutPort.findById(1L);
 	}
 
 	public Member createMember(Member creatingMember) {

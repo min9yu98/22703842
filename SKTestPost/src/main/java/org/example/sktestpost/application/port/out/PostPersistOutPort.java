@@ -4,4 +4,6 @@ import org.example.sktestpost.domain.Post;
 
 public interface PostPersistOutPort {
 	Post save(Post savingPost);
+
+	Post findById(Long postId);
 }
