@@ -1,19 +1,26 @@
 package org.example.sktestpost.application.facade;
 
+import java.util.stream.Collectors;
+
 import org.example.sktestpost.application.port.in.PostUseCase;
 import org.example.sktestpost.application.service.MemberService;
+import org.example.sktestpost.application.service.PostFileService;
 import org.example.sktestpost.application.service.PostService;
 import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.DeletePostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostListResDTO;
 import org.example.sktestpost.common.dto.response.GetPostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostThumbNailResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.example.sktestpost.common.response.error.ErrorCode;
 import org.example.sktestpost.common.response.exception.IllegalAccessException;
 import org.example.sktestpost.domain.Member;
 import org.example.sktestpost.domain.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class PostFacade implements PostUseCase {
 
 	private final PostService postService;
+	private final PostFileService postFileService;
 	private final MemberService memberService;
 
 	@Override
@@ -91,6 +99,24 @@ public class PostFacade implements PostUseCase {
 			.createdAt(gettingPost.getCreatedAt().toLocalDate())
 			.viewCount(gettingPost.getViewCount())
 			.content(gettingPost.getContent())
+			.build();
+	}
+
+	@Override
+	public GetPostListResDTO getPostList(Pageable pageable) {
+		Page<Post> postList = postService.getPostList(pageable);
+		return GetPostListResDTO.builder()
+			.pageCount(postList.getTotalPages())
+			.pageNumber(pageable.getPageNumber())
+			.postList(postList.stream().map(post -> GetPostThumbNailResDTO.builder()
+					.postId(post.getId())
+					.title(post.getTitle())
+					.writerId(post.getMember().getId())
+					.postViewCount(post.getViewCount())
+					.postFileState(postFileService.isExistPostFile(post.getId()))
+					.createdAt(post.getCreatedAt().toLocalDate())
+					.build())
+				.collect(Collectors.toList()))
 			.build();
 	}
 }

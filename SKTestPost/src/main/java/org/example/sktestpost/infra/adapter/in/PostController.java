@@ -1,14 +1,20 @@
 package org.example.sktestpost.infra.adapter.in;
 
+import static org.example.sktestpost.common.constants.Constants.*;
+
 import org.example.sktestpost.application.port.in.PostUseCase;
 import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
 import org.example.sktestpost.common.dto.response.DeletePostResDTO;
+import org.example.sktestpost.common.dto.response.GetPostListResDTO;
 import org.example.sktestpost.common.dto.response.GetPostResDTO;
 import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import org.example.sktestpost.common.response.ResultResponse;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,5 +70,18 @@ public class PostController {
 		log.info("get post");
 		GetPostResDTO getPostResDTO = postUseCase.getPost(postId);
 		return ResponseEntity.ok(new ResultResponse(getPostResDTO));
+	}
+
+	@Operation(summary = "게시글 목록 조회")
+	@GetMapping
+	public ResponseEntity<ResultResponse> getPostList(@RequestParam(value = "page", defaultValue = "0") int page) {
+		log.info("get post list");
+		Pageable pageable = generatePageable(page);
+		GetPostListResDTO getPostListResDTO = postUseCase.getPostList(pageable);
+		return ResponseEntity.ok(new ResultResponse(getPostListResDTO));
+	}
+
+	private Pageable generatePageable(int page) {
+		return PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.DESC, PAGE_SORT_CRITERIA));
 	}
 }
