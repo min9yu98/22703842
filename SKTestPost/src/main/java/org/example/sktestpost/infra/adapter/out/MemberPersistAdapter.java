@@ -1,7 +1,7 @@
 package org.example.sktestpost.infra.adapter.out;
 
 import org.example.sktestpost.application.port.out.MemberPersistOutPort;
-import org.example.sktestpost.common.domain.Member;
+import org.example.sktestpost.domain.Member;
 import org.example.sktestpost.infra.adapter.out.jpa.MemberJpaRepository;
 import org.springframework.stereotype.Repository;
 

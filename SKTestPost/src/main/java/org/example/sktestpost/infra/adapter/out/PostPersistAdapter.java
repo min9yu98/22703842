@@ -1,7 +1,7 @@
 package org.example.sktestpost.infra.adapter.out;
 
 import org.example.sktestpost.application.port.out.PostPersistOutPort;
-import org.example.sktestpost.common.domain.Post;
+import org.example.sktestpost.domain.Post;
 import org.example.sktestpost.infra.adapter.out.jpa.PostJpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,6 @@
-package org.example.sktestpost.common.domain;
+package org.example.sktestpost.domain;
+
+import org.example.sktestpost.common.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,7 +1,7 @@
 package org.example.sktestpost.application.service;
 
 import org.example.sktestpost.application.port.out.MemberPersistOutPort;
-import org.example.sktestpost.common.domain.Member;
+import org.example.sktestpost.domain.Member;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;

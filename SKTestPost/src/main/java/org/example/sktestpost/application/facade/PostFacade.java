@@ -3,10 +3,10 @@ package org.example.sktestpost.application.facade;
 import org.example.sktestpost.application.port.in.PostUseCase;
 import org.example.sktestpost.application.service.MemberService;
 import org.example.sktestpost.application.service.PostService;
-import org.example.sktestpost.common.domain.Member;
-import org.example.sktestpost.common.domain.Post;
 import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import org.example.sktestpost.common.dto.response.CreatePostResDTO;
+import org.example.sktestpost.domain.Member;
+import org.example.sktestpost.domain.Post;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

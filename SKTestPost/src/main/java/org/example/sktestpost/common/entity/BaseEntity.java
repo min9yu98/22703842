@@ -1,4 +1,4 @@
-package org.example.sktestpost.common.domain;
+package org.example.sktestpost.common.entity;
 
 import java.time.LocalDateTime;
 
@@ -23,5 +23,5 @@ public class BaseEntity {
 
 	@Column(name = "is_deleted", nullable = false)
 	private boolean isDeleted = false;
-	
+
 }

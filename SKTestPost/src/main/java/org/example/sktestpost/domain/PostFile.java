@@ -1,14 +1,15 @@
-package org.example.sktestpost.common.domain;
+package org.example.sktestpost.domain;
 
-import jakarta.persistence.Column;
+import org.example.sktestpost.common.entity.BaseEntity;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,22 +17,16 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+public class PostFile extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	private String name;
+	private String postFileUrl;
 
-	@Email
-	@Column(nullable = false, unique = true)
-	private String email;
+	@ManyToOne
+	@JoinColumn(name = "post_id", nullable = false)
+	private Post post;
 
-	@Builder
-	public Member(String name, String email) {
-		this.name = name;
-		this.email = email;
-	}
 }
