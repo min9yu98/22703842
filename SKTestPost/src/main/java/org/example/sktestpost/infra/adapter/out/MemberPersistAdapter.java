@@ -25,4 +25,15 @@ public class MemberPersistAdapter implements MemberPersistOutPort {
 		return memberJpaRepository.findById(memberId)
 			.orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다.", ErrorCode.NOT_FOUND));
 	}
+
+	@Override
+	public Member findByAccountId(String accountId) {
+		return memberJpaRepository.findByAccountId(accountId)
+			.orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다.", ErrorCode.NOT_FOUND));
+	}
+
+	@Override
+	public boolean isExistsByAccountId(String accountId) {
+		return memberJpaRepository.existsByAccountId(accountId);
+	}
 }

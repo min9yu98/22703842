@@ -30,7 +30,7 @@ public class JwtUtils {
 	}
 
 	public String generateAccessToken(String accountId, String role) {
-		return BEARER + Jwts.builder()
+		return BEARER.getContent() + Jwts.builder()
 			.claim("accountId", accountId)
 			.claim("role", role)
 			.claim("tokenType", ACCESS_TOKEN.getContent())
@@ -45,7 +45,7 @@ public class JwtUtils {
 	}
 
 	public String generateRefreshToken(String accountId, String role) {
-		return BEARER + Jwts.builder()
+		return BEARER.getContent() + Jwts.builder()
 			.claim("accountId", accountId)
 			.claim("role", role)
 			.claim("tokenType", REFRESH_TOKEN.getContent())

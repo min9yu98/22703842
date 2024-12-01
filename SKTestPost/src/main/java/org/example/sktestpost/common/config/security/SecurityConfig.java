@@ -54,9 +54,10 @@ public class SecurityConfig {
 			.httpBasic(auth -> auth.disable())
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers(HttpMethod.GET).permitAll()
+				.requestMatchers("/members/join", "/members/login").permitAll()
 				.anyRequest().authenticated())
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class);
+			.addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class)
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();
 	}
 

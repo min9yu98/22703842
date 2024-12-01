@@ -20,7 +20,7 @@ spring:
   jwt:
     access-token-expiration: 86400000
     refresh-token-expiration: 86400000
-    secret: dkssudgktpdy-rlaaalsrbdlqslek
+    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbaltripmingle
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

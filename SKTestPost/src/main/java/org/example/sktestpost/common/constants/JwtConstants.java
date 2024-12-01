@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum JwtConstants {
 
-	ACCESS_TOKEN("access"),
-	REFRESH_TOKEN("refresh"),
+	ACCESS_TOKEN("access-token"),
+	REFRESH_TOKEN("refresh-token"),
 	BEARER("Bearer "),
 	;
 

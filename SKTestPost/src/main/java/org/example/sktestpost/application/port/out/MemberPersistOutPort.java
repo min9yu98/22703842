@@ -6,4 +6,8 @@ public interface MemberPersistOutPort {
 	Member save(Member creatingMember);
 
 	Member findById(long memberId);
+
+	Member findByAccountId(String accountId);
+
+	boolean isExistsByAccountId(String accountId);
 }
