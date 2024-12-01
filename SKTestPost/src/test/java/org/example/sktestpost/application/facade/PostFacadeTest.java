@@ -36,11 +36,11 @@ class PostFacadeTest {
 		// given
 		String title = "테스트 제목";
 		String content = "테스트 내용";
-		Long writerId = 1L;
+		String writerId = "test";
 		CreatePostReqDTO createPostReqDTO = new CreatePostReqDTO();
 		createPostReqDTO.setTitle(title);
 		createPostReqDTO.setContent(content);
-		createPostReqDTO.setWriterId(writerId);
+		createPostReqDTO.setWriterAccountId(writerId);
 
 		// when
 		CreatePostResDTO result = postFacade.createPost(createPostReqDTO);
@@ -48,7 +48,7 @@ class PostFacadeTest {
 		// then
 		assertThat(result.getTitle()).isEqualTo(title);
 		assertThat(result.getContent()).isEqualTo(content);
-		assertThat(result.getWriterId()).isEqualTo(writerId);
+		assertThat(result.getWriterAccountId()).isEqualTo(writerId);
 	}
 
 	@Test
@@ -59,7 +59,7 @@ class PostFacadeTest {
 		Long postId = createdPost.getPostId();
 		String title = "수정된 제목";
 		String content = "수정된 내용";
-		Long writerId = 1L;
+		String writerId = "test";
 		UpdatePostReqDTO updatePostReqDTO = new UpdatePostReqDTO();
 		updatePostReqDTO.setTitle(title);
 		updatePostReqDTO.setContent(content);
@@ -71,7 +71,7 @@ class PostFacadeTest {
 		// then
 		assertThat(result.getTitle()).isNotEqualTo(createdPost.getTitle());
 		assertThat(result.getContent()).isNotEqualTo(createdPost.getContent());
-		assertThat(result.getWriterId()).isEqualTo(writerId);
+		assertThat(result.getWriterAccountId()).isEqualTo(writerId);
 	}
 
 	@Test
@@ -80,10 +80,10 @@ class PostFacadeTest {
 		// given
 		CreatePostResDTO createdPost = createPost();
 		Long postId = createdPost.getPostId();
-		Long writerId = createdPost.getWriterId();
+		String writerAccountId = createdPost.getWriterAccountId();
 		DeletePostReqDTO deletePostReqDTO = new DeletePostReqDTO();
 		deletePostReqDTO.setPostId(postId);
-		deletePostReqDTO.setWriterId(writerId);
+		deletePostReqDTO.setWriterAccountId(writerAccountId);
 
 		// when
 		postFacade.deletePost(deletePostReqDTO);
@@ -148,11 +148,11 @@ class PostFacadeTest {
 	private CreatePostResDTO createPost() {
 		String title = "테스트 제목";
 		String content = "테스트 내용";
-		Long writerId = 1L;
+		String writerId = "test";
 		CreatePostReqDTO createPostReqDTO = new CreatePostReqDTO();
 		createPostReqDTO.setTitle(title);
 		createPostReqDTO.setContent(content);
-		createPostReqDTO.setWriterId(writerId);
+		createPostReqDTO.setWriterAccountId(writerId);
 
 		return postFacade.createPost(createPostReqDTO);
 	}

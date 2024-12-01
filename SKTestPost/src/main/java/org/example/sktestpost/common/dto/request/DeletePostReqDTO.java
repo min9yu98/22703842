@@ -8,6 +8,6 @@ import lombok.Setter;
 public class DeletePostReqDTO {
 
 	private Long postId;
-	private Long writerId;
+	private String writerAccountId;
 
 }

@@ -2,6 +2,8 @@ package org.example.sktestpost.common.config.security;
 
 import java.util.Collections;
 
+import org.example.sktestpost.common.config.security.filter.JwtFilter;
+import org.example.sktestpost.common.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -23,10 +26,12 @@ import jakarta.servlet.http.HttpServletRequest;
 public class SecurityConfig {
 
 	private final AuthenticationConfiguration authenticationConfiguration;
+	private final JwtUtils jwtUtils;
 
 	@Autowired
-	public SecurityConfig(AuthenticationConfiguration authenticationConfiguration) {
+	public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JwtUtils jwtUtils) {
 		this.authenticationConfiguration = authenticationConfiguration;
+		this.jwtUtils = jwtUtils;
 	}
 
 	@Bean
@@ -50,7 +55,8 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers(HttpMethod.GET).permitAll()
 				.anyRequest().authenticated())
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 

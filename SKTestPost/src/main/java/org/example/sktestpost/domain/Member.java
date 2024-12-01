@@ -34,9 +34,14 @@ public class Member extends BaseEntity {
 	@Column(nullable = false)
 	private String accountPwd;
 
+	@Column(nullable = false)
+	private String role;
+
 	@Builder
-	public Member(String name, String accountId) {
+	public Member(String name, String accountId, String accountPwd, String role) {
 		this.name = name;
 		this.accountId = accountId;
+		this.accountPwd = accountPwd;
+		this.role = role;
 	}
 }
