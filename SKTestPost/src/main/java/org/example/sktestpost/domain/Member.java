@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,13 +28,15 @@ public class Member extends BaseEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@Email
 	@Column(nullable = false, unique = true)
-	private String email;
+	private String accountId;
+
+	@Column(nullable = false)
+	private String accountPwd;
 
 	@Builder
-	public Member(String name, String email) {
+	public Member(String name, String accountId) {
 		this.name = name;
-		this.email = email;
+		this.accountId = accountId;
 	}
 }

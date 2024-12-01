@@ -14,7 +14,7 @@ public class MemberService {
 
 	// 임시 구현
 	public Member getCurrentMemberForTest() {
-		return createMember(Member.builder().name("test").email("test@gmail.com").build());
+		return createMember(Member.builder().name("test").accountId("test@gmail.com").build());
 	}
 
 	public Member getCurrentMember() {

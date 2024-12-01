@@ -11,7 +11,7 @@ public class GetPostThumbNailResDTO {
 
 	private Long postId;
 	private String title;
-	private Long writerId;
+	private String writerAccountId;
 	private Long postViewCount;
 	private boolean postFileState;
 	private LocalDate createdAt;

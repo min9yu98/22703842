@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class PostFacade implements PostUseCase {
 
 	private final PostService postService;
@@ -37,7 +37,6 @@ public class PostFacade implements PostUseCase {
 	private final MemberService memberService;
 
 	@Override
-	@Transactional
 	public CreatePostResDTO createPost(CreatePostReqDTO createPostReqDTO) {
 		Member currentMemberAsWriter = memberService.getCurrentMemberForTest();
 		Post createdPost = postService.createPost(createPostReqDTO, currentMemberAsWriter);
@@ -47,12 +46,11 @@ public class PostFacade implements PostUseCase {
 			.content(createdPost.getContent())
 			.createAt(createdPost.getCreatedAt().toLocalDate())
 			.postViewCount(createdPost.getViewCount())
-			.writerId(currentMemberAsWriter.getId())
+			.writerAccountId(currentMemberAsWriter.getAccountId())
 			.build();
 	}
 
 	@Override
-	@Transactional
 	public UpdatePostResDTO updatePost(UpdatePostReqDTO updatePostReqDTO) {
 		Member currentMember = memberService.getCurrentMember();
 		Post updatingPost = postService.getPost(updatePostReqDTO.getPostId());
@@ -64,14 +62,12 @@ public class PostFacade implements PostUseCase {
 			.content(updatingPost.getContent())
 			.createAt(updatingPost.getCreatedAt().toLocalDate())
 			.postViewCount(updatingPost.getViewCount())
-			.writerId(currentMember.getId())
+			.writerAccountId(currentMember.getAccountId())
 			.build();
 	}
 
 	@Override
-	@Transactional
 	public DeletePostResDTO deletePost(DeletePostReqDTO deletePostReqDTO) {
-		Member currentMember = memberService.getCurrentMember();
 		Post deletingPost = postService.getPost(deletePostReqDTO.getPostId());
 		deletingPost.delete();
 		isPostWriter(deletingPost.getMember().getId());
@@ -89,14 +85,13 @@ public class PostFacade implements PostUseCase {
 	}
 
 	@Override
-	@Transactional
 	public GetPostResDTO getPost(Long postId) {
 		Post gettingPost = postService.getPost(postId);
 		gettingPost.increaseViewCount();
 		return GetPostResDTO.builder()
 			.postId(postId)
 			.title(gettingPost.getTitle())
-			.writerId(gettingPost.getMember().getId())
+			.writerAccountId(gettingPost.getMember().getAccountId())
 			.createdAt(gettingPost.getCreatedAt().toLocalDate())
 			.viewCount(gettingPost.getViewCount())
 			.content(gettingPost.getContent())
@@ -104,6 +99,7 @@ public class PostFacade implements PostUseCase {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public GetPostListResDTO getPostList(Pageable pageable) {
 		Page<Post> postList = postService.getPostList(pageable);
 		return GetPostListResDTO.builder()
@@ -112,7 +108,7 @@ public class PostFacade implements PostUseCase {
 			.postList(postList.stream().map(post -> GetPostThumbNailResDTO.builder()
 					.postId(post.getId())
 					.title(post.getTitle())
-					.writerId(post.getMember().getId())
+					.writerAccountId(post.getMember().getAccountId())
 					.postViewCount(post.getViewCount())
 					.postFileState(postFileService.isExistPostFile(post.getId()))
 					.createdAt(post.getCreatedAt().toLocalDate())
@@ -122,6 +118,7 @@ public class PostFacade implements PostUseCase {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public GetSearchPostListResDTO getSearchPostList(Pageable pageable, String keyword) {
 		Page<Post> searchPostList = postService.getSearchPostList(pageable, keyword);
 		return GetSearchPostListResDTO.builder()
@@ -130,7 +127,7 @@ public class PostFacade implements PostUseCase {
 			.postList(searchPostList.stream().map(post -> GetPostThumbNailResDTO.builder()
 					.postId(post.getId())
 					.title(post.getTitle())
-					.writerId(post.getMember().getId())
+					.writerAccountId(post.getMember().getAccountId())
 					.postViewCount(post.getViewCount())
 					.postFileState(postFileService.isExistPostFile(post.getId()))
 					.createdAt(post.getCreatedAt().toLocalDate())

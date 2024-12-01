@@ -11,7 +11,7 @@ public class UpdatePostResDTO {
 
 	private Long postId;
 	private String title;
-	private Long writerId;
+	private String writerAccountId;
 	private LocalDate createAt;
 	private String content;
 	private Long postViewCount;

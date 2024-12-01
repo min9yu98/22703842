@@ -2,7 +2,6 @@ package org.example.sktestpost.application.service;
 
 import org.example.sktestpost.application.port.out.PostPersistOutPort;
 import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
-import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import org.example.sktestpost.domain.Member;
 import org.example.sktestpost.domain.Post;
 import org.springframework.data.domain.Page;
@@ -29,13 +28,6 @@ public class PostService {
 	public Post getPost(Long postId) {
 		return postPersistOutPort.findById(postId);
 
-	}
-
-	public Long deletePost(DeletePostReqDTO deletePostReqDTO) {
-		Post deletingPost = postPersistOutPort.findById(deletePostReqDTO.getPostId());
-		Long deletedPostId = deletingPost.getId();
-		deletingPost.delete();
-		return deletedPostId;
 	}
 
 	public Page<Post> getPostList(Pageable pageable) {

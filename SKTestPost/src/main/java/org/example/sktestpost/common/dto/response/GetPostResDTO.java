@@ -11,7 +11,7 @@ public class GetPostResDTO {
 
 	private Long postId;
 	private String title;
-	private Long writerId;
+	private String writerAccountId;
 	private LocalDate createdAt;
 	private Long viewCount;
 	private String content;
