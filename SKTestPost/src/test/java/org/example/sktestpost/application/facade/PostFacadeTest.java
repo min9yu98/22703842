@@ -1,21 +1,22 @@
-package org.example.sktestpost.application.facade;
+package com.example.sktestpost.application.facade;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.example.sktestpost.common.constants.Constants.*;
+import static com.example.sktestpost.common.constants.Constants.*;
 
 import java.util.List;
 
-import org.example.sktestpost.common.config.security.userdetails.CustomUserDetailsService;
-import org.example.sktestpost.common.dto.request.CreatePostReqDTO;
-import org.example.sktestpost.common.dto.request.DeletePostReqDTO;
-import org.example.sktestpost.common.dto.request.UpdatePostReqDTO;
-import org.example.sktestpost.common.dto.response.CreatePostResDTO;
-import org.example.sktestpost.common.dto.response.GetPostListResDTO;
-import org.example.sktestpost.common.dto.response.GetPostResDTO;
-import org.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
-import org.example.sktestpost.common.dto.response.UpdatePostResDTO;
-import org.example.sktestpost.domain.Member;
-import org.example.sktestpost.infra.adapter.out.jpa.MemberJpaRepository;
+import com.example.sktestpost.common.config.security.userdetails.CustomUserDetailsService;
+import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
+import com.example.sktestpost.common.dto.request.DeletePostReqDTO;
+import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
+import com.example.sktestpost.common.dto.response.CreatePostResDTO;
+import com.example.sktestpost.common.dto.response.GetPostListResDTO;
+import com.example.sktestpost.common.dto.response.GetPostResDTO;
+import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
+import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
+import com.example.sktestpost.domain.Member;
+import com.example.sktestpost.infra.adapter.out.jpa.MemberJpaRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
