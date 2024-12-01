@@ -8,6 +8,7 @@ public enum JwtConstants {
 	ACCESS_TOKEN("access-token"),
 	REFRESH_TOKEN("refresh-token"),
 	BEARER("Bearer "),
+	ROLE_USER("ROLE_USER"),
 	;
 
 	private String content;

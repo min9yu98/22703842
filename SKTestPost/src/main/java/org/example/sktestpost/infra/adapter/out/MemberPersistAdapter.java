@@ -16,8 +16,8 @@ public class MemberPersistAdapter implements MemberPersistOutPort {
 	private final MemberJpaRepository memberJpaRepository;
 
 	@Override
-	public Member save(Member creatingMember) {
-		return memberJpaRepository.save(creatingMember);
+	public void save(Member creatingMember) {
+		memberJpaRepository.save(creatingMember);
 	}
 
 	@Override

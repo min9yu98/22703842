@@ -9,6 +9,5 @@ public class CreatePostReqDTO {
 
 	private String title;
 	private String content;
-	private String writerAccountId; // spring security 적용 후 수정 예정
 
 }

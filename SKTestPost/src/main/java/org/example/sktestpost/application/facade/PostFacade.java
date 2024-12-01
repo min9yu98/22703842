@@ -38,7 +38,7 @@ public class PostFacade implements PostUseCase {
 
 	@Override
 	public CreatePostResDTO createPost(CreatePostReqDTO createPostReqDTO) {
-		Member currentMemberAsWriter = memberService.getCurrentMemberForTest();
+		Member currentMemberAsWriter = memberService.getCurrentMember();
 		Post createdPost = postService.createPost(createPostReqDTO, currentMemberAsWriter);
 		return CreatePostResDTO.builder()
 			.postId(createdPost.getId())

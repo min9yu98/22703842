@@ -52,9 +52,10 @@ public class SecurityConfig {
 			.csrf(auth -> auth.disable())
 			.formLogin(auth -> auth.disable())
 			.httpBasic(auth -> auth.disable())
+			.headers(auth -> auth.frameOptions().disable())
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers(HttpMethod.GET).permitAll()
-				.requestMatchers("/members/join", "/members/login").permitAll()
+				.requestMatchers("/members/join", "/members/login", "/h2-console/**").permitAll()
 				.anyRequest().authenticated())
 			.addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

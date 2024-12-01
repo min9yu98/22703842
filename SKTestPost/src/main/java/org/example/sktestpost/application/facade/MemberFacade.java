@@ -1,11 +1,14 @@
 package org.example.sktestpost.application.facade;
 
+import static org.example.sktestpost.common.constants.JwtConstants.*;
+
 import org.example.sktestpost.application.port.in.MemberUseCase;
 import org.example.sktestpost.application.service.MemberService;
 import org.example.sktestpost.common.dto.request.JoinReqDTO;
 import org.example.sktestpost.common.dto.request.LoginReqDTO;
 import org.example.sktestpost.common.dto.response.JoinResDTO;
 import org.example.sktestpost.common.dto.response.LoginResDTO;
+import org.example.sktestpost.common.dto.response.TokenResDTO;
 import org.example.sktestpost.common.response.error.ErrorCode;
 import org.example.sktestpost.common.response.exception.IllegalAccessException;
 import org.example.sktestpost.common.utils.JwtUtils;
@@ -31,11 +34,10 @@ public class MemberFacade implements MemberUseCase {
 		if (!bCryptPasswordEncoder.matches(loginReqDTO.getAccountPwd(), member.getAccountPwd())) {
 			throw new IllegalAccessException("비밀번호가 일치하지 않습니다.", ErrorCode.IllegalAccess);
 		}
-		String accessToken = jwtUtils.generateAccessToken(member.getAccountId(), member.getRole());
-		String refreshToken = jwtUtils.generateRefreshToken(member.getAccountId(), member.getRole());
+		TokenResDTO tokenResDTO = generateTokens(member);
 		return LoginResDTO.builder()
-			.accessToken(accessToken)
-			.refreshToken(refreshToken)
+			.accessToken(tokenResDTO.getAccessToken())
+			.refreshToken(tokenResDTO.getRefreshToken())
 			.build();
 	}
 
@@ -48,12 +50,20 @@ public class MemberFacade implements MemberUseCase {
 			.name(joinReqDTO.getName())
 			.accountId(joinReqDTO.getAccountId())
 			.accountPwd(bCryptPasswordEncoder.encode(joinReqDTO.getAccountPwd()))
-			.role("USER")
+			.role(ROLE_USER.getContent())
 			.build();
 		memberService.createMember(creatingMember);
-		String accessToken = jwtUtils.generateAccessToken(creatingMember.getAccountId(), creatingMember.getRole());
-		String refreshToken = jwtUtils.generateRefreshToken(creatingMember.getAccountId(), creatingMember.getRole());
+		TokenResDTO tokenResDTO = generateTokens(creatingMember);
 		return JoinResDTO.builder()
+			.accessToken(tokenResDTO.getAccessToken())
+			.refreshToken(tokenResDTO.getRefreshToken())
+			.build();
+	}
+
+	private TokenResDTO generateTokens(Member member) {
+		String accessToken = jwtUtils.generateAccessToken(member.getAccountId(), member.getRole());
+		String refreshToken = jwtUtils.generateRefreshToken(member.getAccountId(), member.getRole());
+		return TokenResDTO.builder()
 			.accessToken(accessToken)
 			.refreshToken(refreshToken)
 			.build();
