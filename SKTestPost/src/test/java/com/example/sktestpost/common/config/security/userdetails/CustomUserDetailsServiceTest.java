@@ -1,4 +1,4 @@
-package org.example.sktestpost.common.config.security.userdetails;
+package com.example.sktestpost.common.config.security.userdetails;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.example.sktestpost.common.config.security.userdetails.CustomUserDetailsService;
 import com.example.sktestpost.domain.Member;
 import com.example.sktestpost.infra.adapter.out.jpa.MemberJpaRepository;
 

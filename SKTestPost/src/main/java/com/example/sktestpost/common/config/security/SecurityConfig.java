@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -56,15 +57,14 @@ public class SecurityConfig {
 			.csrf(auth -> auth.disable())
 			.formLogin(auth -> auth.disable())
 			.httpBasic(auth -> auth.disable())
-			.headers(auth -> auth.frameOptions().disable())
+			// .headers(auth -> auth.frameOptions().disable())
 			.authorizeHttpRequests(auth -> auth
-					.anyRequest().permitAll()
-				// .requestMatchers(AUTH_PERMITTED_LIST)
-				// .permitAll()
-				// .requestMatchers(HttpMethod.GET)
-				// .permitAll()
-				// .anyRequest()
-				// .authenticated()
+				.requestMatchers(AUTH_PERMITTED_LIST)
+				.permitAll()
+				.requestMatchers(HttpMethod.GET)
+				.permitAll()
+				.anyRequest()
+				.authenticated()
 			)
 			.addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
