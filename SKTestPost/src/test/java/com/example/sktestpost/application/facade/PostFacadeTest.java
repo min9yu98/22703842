@@ -147,10 +147,11 @@ class PostFacadeTest {
 		// given
 		CreatePostResDTO createdPost = createPost();
 		String keyword = "t";
+		String category = TITLE;
 
 		// when
 		Pageable pageable = generatePageable(0);
-		GetPostListResDTO result = postFacade.getPostList(pageable, keyword);
+		GetPostListResDTO result = postFacade.getPostList(pageable, keyword, category);
 
 		// then
 		assertThat(result.getPostList().size()).isEqualTo(1);
