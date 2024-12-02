@@ -6,11 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sktestpost.application.port.in.PostUseCase;
 import com.example.sktestpost.application.service.MemberService;
 import com.example.sktestpost.application.service.PostFileService;
 import com.example.sktestpost.application.service.PostService;
+import com.example.sktestpost.application.service.S3Service;
 import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import com.example.sktestpost.common.dto.response.CreatePostResDTO;
@@ -19,6 +21,7 @@ import com.example.sktestpost.common.dto.response.GetPostListResDTO;
 import com.example.sktestpost.common.dto.response.GetPostResDTO;
 import com.example.sktestpost.common.dto.response.GetPostThumbNailResDTO;
 import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
+import com.example.sktestpost.common.dto.response.UploadPostFileResDTO;
 import com.example.sktestpost.common.response.error.ErrorCode;
 import com.example.sktestpost.common.response.exception.IllegalAccessException;
 import com.example.sktestpost.domain.Member;
@@ -34,6 +37,7 @@ public class PostFacade implements PostUseCase {
 	private final PostService postService;
 	private final PostFileService postFileService;
 	private final MemberService memberService;
+	private final S3Service s3Service;
 
 	@Override
 	public CreatePostResDTO createPost(CreatePostReqDTO createPostReqDTO) {
@@ -114,5 +118,21 @@ public class PostFacade implements PostUseCase {
 					.build())
 				.collect(Collectors.toList()))
 			.build();
+	}
+
+	@Override
+	public UploadPostFileResDTO uploadPostFile(Long postId, MultipartFile file) {
+		String fileUrl = s3Service.uploadImage(file);
+		Post post = postService.getPost(postId);
+		postFileService.savePostFile(post, fileUrl);
+		return UploadPostFileResDTO.builder()
+			.fileUrl(fileUrl)
+			.build();
+	}
+
+	@Override
+	public void deletePostFile(Long postId, String fileUrl) {
+		postFileService.deletePostFile(postId, fileUrl);
+		s3Service.deletePostFile(fileUrl);
 	}
 }
