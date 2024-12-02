@@ -1,0 +1,21 @@
+/* common.css */
+.post-list {
+    width: 768px;
+    margin: auto;
+}
+
+.post-detail {
+    width: 768px;
+    margin: auto;
+    text-align: left;
+}
+
+.post-contents {
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.common-buttons {
+    padding: 8px;
+    text-align: right;
+}
