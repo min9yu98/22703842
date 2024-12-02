@@ -1,5 +1,7 @@
 package com.example.sktestpost.application.service;
 
+import static com.example.sktestpost.common.constants.Constants.*;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,8 +33,12 @@ public class PostService {
 
 	}
 
-	public Page<Post> getPostList(Pageable pageable, String keyword) {
-		return postPersistOutPort.findAllByKeyword(pageable, keyword);
+	public Page<Post> getPostList(Pageable pageable, String keyword, String category) {
+		return switch (category) {
+			case TITLE -> postPersistOutPort.findAllByTitle(pageable, keyword);
+			case MEMBER_ACCOUNT_ID -> postPersistOutPort.findAllByMemberAccountId(pageable, keyword);
+			default -> postPersistOutPort.findAllByKeyword(pageable, keyword);
+		};
 	}
 
 }

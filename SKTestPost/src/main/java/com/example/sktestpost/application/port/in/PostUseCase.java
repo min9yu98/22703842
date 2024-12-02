@@ -19,5 +19,5 @@ public interface PostUseCase {
 
 	GetPostResDTO getPost(Long postId);
 
-	GetPostListResDTO getPostList(Pageable pageable, String keyword);
+	GetPostListResDTO getPostList(Pageable pageable, String keyword, String category);
 }

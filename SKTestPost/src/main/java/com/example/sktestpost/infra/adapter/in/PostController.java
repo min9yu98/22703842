@@ -78,10 +78,11 @@ public class PostController {
 	@GetMapping
 	public ResponseEntity<ResultResponse> getPostList(
 		@RequestParam(value = "page", defaultValue = "0") int page,
-		@RequestParam(value = "keyword", required = false) String keyword) {
+		@RequestParam(value = "keyword", required = false) String keyword,
+		@RequestParam(value = "category", required = true) String category) {
 		log.info("get post list");
 		Pageable pageable = generatePageable(page);
-		GetPostListResDTO getPostListResDTO = postUseCase.getPostList(pageable, keyword);
+		GetPostListResDTO getPostListResDTO = postUseCase.getPostList(pageable, keyword, category);
 		return ResponseEntity.ok(new ResultResponse(getPostListResDTO));
 	}
 
