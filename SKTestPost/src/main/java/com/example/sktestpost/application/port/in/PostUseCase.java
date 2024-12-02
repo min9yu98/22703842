@@ -8,7 +8,6 @@ import com.example.sktestpost.common.dto.response.CreatePostResDTO;
 import com.example.sktestpost.common.dto.response.DeletePostResDTO;
 import com.example.sktestpost.common.dto.response.GetPostListResDTO;
 import com.example.sktestpost.common.dto.response.GetPostResDTO;
-import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
 import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
 
 public interface PostUseCase {
@@ -20,7 +19,5 @@ public interface PostUseCase {
 
 	GetPostResDTO getPost(Long postId);
 
-	GetPostListResDTO getPostList(Pageable pageable);
-
-	GetSearchPostListResDTO getSearchPostList(Pageable pageable, String keyword);
+	GetPostListResDTO getPostList(Pageable pageable, String keyword);
 }

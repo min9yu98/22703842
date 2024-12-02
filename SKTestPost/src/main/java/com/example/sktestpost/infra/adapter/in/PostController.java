@@ -24,7 +24,6 @@ import com.example.sktestpost.common.dto.response.CreatePostResDTO;
 import com.example.sktestpost.common.dto.response.DeletePostResDTO;
 import com.example.sktestpost.common.dto.response.GetPostListResDTO;
 import com.example.sktestpost.common.dto.response.GetPostResDTO;
-import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
 import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import com.example.sktestpost.common.response.ResultResponse;
 
@@ -77,22 +76,13 @@ public class PostController {
 
 	@Operation(summary = "게시글 목록 조회")
 	@GetMapping
-	public ResponseEntity<ResultResponse> getPostList(@RequestParam(value = "page", defaultValue = "0") int page) {
+	public ResponseEntity<ResultResponse> getPostList(
+		@RequestParam(value = "page", defaultValue = "0") int page,
+		@RequestParam(value = "keyword", required = false) String keyword) {
 		log.info("get post list");
 		Pageable pageable = generatePageable(page);
-		GetPostListResDTO getPostListResDTO = postUseCase.getPostList(pageable);
+		GetPostListResDTO getPostListResDTO = postUseCase.getPostList(pageable, keyword);
 		return ResponseEntity.ok(new ResultResponse(getPostListResDTO));
-	}
-
-	@Operation(summary = "게시글 검색 조회")
-	@GetMapping("/search")
-	public ResponseEntity<ResultResponse> getSearchPostList(
-		@RequestParam(value = "page", defaultValue = "0") int page,
-		@RequestParam(value = "keyword") String keyword) {
-		log.info("get search post list");
-		Pageable pageable = generatePageable(page);
-		GetSearchPostListResDTO getSearchPostListResDTO = postUseCase.getSearchPostList(pageable, keyword);
-		return ResponseEntity.ok(new ResultResponse(getSearchPostListResDTO));
 	}
 
 	private Pageable generatePageable(int page) {

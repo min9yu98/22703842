@@ -29,7 +29,6 @@ import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import com.example.sktestpost.common.dto.response.CreatePostResDTO;
 import com.example.sktestpost.common.dto.response.GetPostListResDTO;
 import com.example.sktestpost.common.dto.response.GetPostResDTO;
-import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
 import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import com.example.sktestpost.domain.Member;
 import com.example.sktestpost.infra.adapter.out.jpa.MemberJpaRepository;
@@ -147,31 +146,14 @@ class PostFacadeTest {
 	void getPostList() {
 		// given
 		CreatePostResDTO createdPost = createPost();
+		String keyword = "t";
 
 		// when
 		Pageable pageable = generatePageable(0);
-		GetPostListResDTO result = postFacade.getPostList(pageable);
+		GetPostListResDTO result = postFacade.getPostList(pageable, keyword);
 
 		// then
 		assertThat(result.getPostList().size()).isEqualTo(1);
-	}
-
-	@Test
-	@DisplayName("포스트 생성 후 검색 조회")
-	void getSearchPostList() {
-		// given
-		CreatePostResDTO createdPost = createPost();
-		String keyword = "테";
-		String keyword2 = "케";
-
-		// when
-		Pageable pageable = generatePageable(0);
-		GetSearchPostListResDTO result = postFacade.getSearchPostList(pageable, keyword);
-		GetSearchPostListResDTO result2 = postFacade.getSearchPostList(pageable, keyword2);
-
-		// then
-		assertThat(result.getPostList().size()).isEqualTo(1);
-		assertThat(result2.getPostList().size()).isEqualTo(0);
 	}
 
 	private CreatePostResDTO createPost() {
