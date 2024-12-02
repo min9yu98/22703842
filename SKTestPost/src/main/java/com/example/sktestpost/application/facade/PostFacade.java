@@ -18,7 +18,6 @@ import com.example.sktestpost.common.dto.response.DeletePostResDTO;
 import com.example.sktestpost.common.dto.response.GetPostListResDTO;
 import com.example.sktestpost.common.dto.response.GetPostResDTO;
 import com.example.sktestpost.common.dto.response.GetPostThumbNailResDTO;
-import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
 import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
 import com.example.sktestpost.common.response.error.ErrorCode;
 import com.example.sktestpost.common.response.exception.IllegalAccessException;
@@ -100,31 +99,12 @@ public class PostFacade implements PostUseCase {
 
 	@Override
 	@Transactional(readOnly = true)
-	public GetPostListResDTO getPostList(Pageable pageable) {
-		Page<Post> postList = postService.getPostList(pageable);
+	public GetPostListResDTO getPostList(Pageable pageable, String keyword) {
+		Page<Post> postList = postService.getPostList(pageable, keyword);
 		return GetPostListResDTO.builder()
 			.pageCount(postList.getTotalPages())
 			.pageNumber(pageable.getPageNumber())
 			.postList(postList.stream().map(post -> GetPostThumbNailResDTO.builder()
-					.postId(post.getId())
-					.title(post.getTitle())
-					.writerAccountId(post.getMember().getAccountId())
-					.postViewCount(post.getViewCount())
-					.postFileState(postFileService.isExistPostFile(post.getId()))
-					.createdAt(post.getCreatedAt().toLocalDate())
-					.build())
-				.collect(Collectors.toList()))
-			.build();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public GetSearchPostListResDTO getSearchPostList(Pageable pageable, String keyword) {
-		Page<Post> searchPostList = postService.getSearchPostList(pageable, keyword);
-		return GetSearchPostListResDTO.builder()
-			.pageCount(searchPostList.getTotalPages())
-			.pageNumber(pageable.getPageNumber())
-			.postList(searchPostList.stream().map(post -> GetPostThumbNailResDTO.builder()
 					.postId(post.getId())
 					.title(post.getTitle())
 					.writerAccountId(post.getMember().getAccountId())
