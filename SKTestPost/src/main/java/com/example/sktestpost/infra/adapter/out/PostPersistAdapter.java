@@ -33,4 +33,14 @@ public class PostPersistAdapter implements PostPersistOutPort {
 	public Page<Post> findAllByKeyword(Pageable pageable, String keyword) {
 		return postJpaRepository.findAllByKeyword(pageable, keyword);
 	}
+
+	@Override
+	public Page<Post> findAllByTitle(Pageable pageable, String keyword) {
+		return postJpaRepository.findAllByTitle(pageable, keyword);
+	}
+
+	@Override
+	public Page<Post> findAllByMemberAccountId(Pageable pageable, String keyword) {
+		return postJpaRepository.findAllByMemberAccountId(pageable, keyword);
+	}
 }

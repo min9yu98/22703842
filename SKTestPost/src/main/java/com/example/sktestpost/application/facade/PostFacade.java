@@ -99,8 +99,8 @@ public class PostFacade implements PostUseCase {
 
 	@Override
 	@Transactional(readOnly = true)
-	public GetPostListResDTO getPostList(Pageable pageable, String keyword) {
-		Page<Post> postList = postService.getPostList(pageable, keyword);
+	public GetPostListResDTO getPostList(Pageable pageable, String keyword, String category) {
+		Page<Post> postList = postService.getPostList(pageable, keyword, category);
 		return GetPostListResDTO.builder()
 			.pageCount(postList.getTotalPages())
 			.pageNumber(pageable.getPageNumber())

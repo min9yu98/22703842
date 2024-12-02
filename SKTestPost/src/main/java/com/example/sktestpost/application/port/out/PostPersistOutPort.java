@@ -11,4 +11,8 @@ public interface PostPersistOutPort {
 	Post findById(Long postId);
 
 	Page<Post> findAllByKeyword(Pageable pageable, String keyword);
+
+	Page<Post> findAllByTitle(Pageable pageable, String keyword);
+
+	Page<Post> findAllByMemberAccountId(Pageable pageable, String keyword);
 }
