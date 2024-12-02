@@ -5,6 +5,7 @@ import static com.example.sktestpost.common.constants.Constants.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sktestpost.application.port.in.PostLockUseCase;
 import com.example.sktestpost.application.port.in.PostUseCase;
@@ -25,6 +28,7 @@ import com.example.sktestpost.common.dto.response.DeletePostResDTO;
 import com.example.sktestpost.common.dto.response.GetPostListResDTO;
 import com.example.sktestpost.common.dto.response.GetPostResDTO;
 import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
+import com.example.sktestpost.common.dto.response.UploadPostFileResDTO;
 import com.example.sktestpost.common.response.ResultResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,6 +52,24 @@ public class PostController {
 		log.info("create post");
 		CreatePostResDTO createPostResDTO = postUseCase.createPost(createPostReqDTO);
 		return ResponseEntity.ok(new ResultResponse(createPostResDTO));
+	}
+
+	@Operation(summary = "게시글 파일 업로드")
+	@PostMapping(value = "/files/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<ResultResponse> uploadPostFile(
+		@PathVariable(value = "postId") Long postId,
+		@RequestPart("file") MultipartFile file) {
+		UploadPostFileResDTO updatePostFileResDTO = postUseCase.uploadPostFile(postId, file);
+		return ResponseEntity.ok(new ResultResponse(updatePostFileResDTO));
+	}
+
+	@Operation(summary = "업로드된 파일 삭제")
+	@DeleteMapping(value = "/files/{postId}")
+	public ResponseEntity<ResultResponse> uploadPostFile(
+		@PathVariable(value = "postId") Long postId,
+		@RequestParam(value = "fileUrl") String fileUrl) {
+		postUseCase.deletePostFile(postId, fileUrl);
+		return ResponseEntity.ok(new ResultResponse("파일 삭제 성공"));
 	}
 
 	@Operation(summary = "게시글 수정")
