@@ -15,6 +15,5 @@ public class GetPostResDTO {
 	private LocalDate createdAt;
 	private Long viewCount;
 	private String content;
-	private boolean isMine;
 
 }

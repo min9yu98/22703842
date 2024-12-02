@@ -1,4 +1,4 @@
-package org.example.sktestpost;
+package com.example.sktestpost;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

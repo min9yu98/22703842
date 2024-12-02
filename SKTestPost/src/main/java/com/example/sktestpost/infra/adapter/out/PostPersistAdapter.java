@@ -1,14 +1,14 @@
 package com.example.sktestpost.infra.adapter.out;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+
 import com.example.sktestpost.application.port.out.PostPersistOutPort;
 import com.example.sktestpost.common.response.error.ErrorCode;
 import com.example.sktestpost.common.response.exception.NotFoundException;
 import com.example.sktestpost.domain.Post;
 import com.example.sktestpost.infra.adapter.out.jpa.PostJpaRepository;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 

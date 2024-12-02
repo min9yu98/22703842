@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.sktestpost.application.port.in.PostLockUseCase;
 import com.example.sktestpost.application.port.in.PostUseCase;
 import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
 import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
@@ -40,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PostController {
 
 	private final PostUseCase postUseCase;
+	private final PostLockUseCase postLockUseCase;
 
 	@Operation(summary = "게시글 생성")
 	@PostMapping
@@ -69,7 +71,7 @@ public class PostController {
 	@GetMapping("/{postId}")
 	public ResponseEntity<ResultResponse> getPost(@PathVariable("postId") Long postId) {
 		log.info("get post");
-		GetPostResDTO getPostResDTO = postUseCase.getPost(postId);
+		GetPostResDTO getPostResDTO = postLockUseCase.getPost(postId);
 		return ResponseEntity.ok(new ResultResponse(getPostResDTO));
 	}
 
