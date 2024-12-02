@@ -3,13 +3,9 @@ package com.example.sktestpost.common.config.security;
 import java.util.Collections;
 import java.util.List;
 
-import com.example.sktestpost.common.config.security.filter.JwtFilter;
-import com.example.sktestpost.common.utils.JwtUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+
+import com.example.sktestpost.common.config.security.filter.JwtFilter;
+import com.example.sktestpost.common.utils.JwtUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -45,7 +44,7 @@ public class SecurityConfig {
 				@Override
 				public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 					CorsConfiguration configuration = new CorsConfiguration();
-					configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+					configuration.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
 					configuration.setAllowedMethods(Collections.singletonList("*"));
 					configuration.setAllowCredentials(true);
 					configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -59,12 +58,14 @@ public class SecurityConfig {
 			.httpBasic(auth -> auth.disable())
 			.headers(auth -> auth.frameOptions().disable())
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers(AUTH_PERMITTED_LIST)
-				.permitAll()
-				.requestMatchers(HttpMethod.GET)
-				.permitAll()
-				.anyRequest()
-				.authenticated())
+					.anyRequest().permitAll()
+				// .requestMatchers(AUTH_PERMITTED_LIST)
+				// .permitAll()
+				// .requestMatchers(HttpMethod.GET)
+				// .permitAll()
+				// .anyRequest()
+				// .authenticated()
+			)
 			.addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();

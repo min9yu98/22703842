@@ -2,12 +2,16 @@ package com.example.sktestpost.application.facade;
 
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.example.sktestpost.application.port.in.PostUseCase;
 import com.example.sktestpost.application.service.MemberService;
 import com.example.sktestpost.application.service.PostFileService;
 import com.example.sktestpost.application.service.PostService;
 import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
-import com.example.sktestpost.common.dto.request.DeletePostReqDTO;
 import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
 import com.example.sktestpost.common.dto.response.CreatePostResDTO;
 import com.example.sktestpost.common.dto.response.DeletePostResDTO;
@@ -20,11 +24,6 @@ import com.example.sktestpost.common.response.error.ErrorCode;
 import com.example.sktestpost.common.response.exception.IllegalAccessException;
 import com.example.sktestpost.domain.Member;
 import com.example.sktestpost.domain.Post;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -68,12 +67,12 @@ public class PostFacade implements PostUseCase {
 	}
 
 	@Override
-	public DeletePostResDTO deletePost(DeletePostReqDTO deletePostReqDTO) {
-		Post deletingPost = postService.getPost(deletePostReqDTO.getPostId());
+	public DeletePostResDTO deletePost(Long postId) {
+		Post deletingPost = postService.getPost(postId);
 		deletingPost.delete();
 		isPostWriter(deletingPost.getMember().getId());
 		return DeletePostResDTO.builder()
-			.postId(deletePostReqDTO.getPostId())
+			.postId(postId)
 			.build();
 	}
 

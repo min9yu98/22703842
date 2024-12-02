@@ -2,18 +2,6 @@ package com.example.sktestpost.infra.adapter.in;
 
 import static com.example.sktestpost.common.constants.Constants.*;
 
-import com.example.sktestpost.application.port.in.PostUseCase;
-import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
-import com.example.sktestpost.common.dto.request.DeletePostReqDTO;
-import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
-import com.example.sktestpost.common.dto.response.CreatePostResDTO;
-import com.example.sktestpost.common.dto.response.DeletePostResDTO;
-import com.example.sktestpost.common.dto.response.GetPostListResDTO;
-import com.example.sktestpost.common.dto.response.GetPostResDTO;
-import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
-import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
-import com.example.sktestpost.common.response.ResultResponse;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,6 +15,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.sktestpost.application.port.in.PostUseCase;
+import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
+import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
+import com.example.sktestpost.common.dto.response.CreatePostResDTO;
+import com.example.sktestpost.common.dto.response.DeletePostResDTO;
+import com.example.sktestpost.common.dto.response.GetPostListResDTO;
+import com.example.sktestpost.common.dto.response.GetPostResDTO;
+import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
+import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
+import com.example.sktestpost.common.response.ResultResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,10 +58,10 @@ public class PostController {
 	}
 
 	@Operation(summary = "게시글 삭제")
-	@DeleteMapping
-	public ResponseEntity<ResultResponse> deletePost(@RequestBody DeletePostReqDTO deletePostReqDTO) {
+	@DeleteMapping("/{postId}")
+	public ResponseEntity<ResultResponse> deletePost(@PathVariable("postId") Long postId) {
 		log.info("delete post");
-		DeletePostResDTO deletePostResDTO = postUseCase.deletePost(deletePostReqDTO);
+		DeletePostResDTO deletePostResDTO = postUseCase.deletePost(postId);
 		return ResponseEntity.ok(new ResultResponse(deletePostResDTO));
 	}
 
