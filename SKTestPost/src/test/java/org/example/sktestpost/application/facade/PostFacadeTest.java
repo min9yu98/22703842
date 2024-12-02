@@ -1,21 +1,9 @@
 package com.example.sktestpost.application.facade;
 
-import static org.assertj.core.api.Assertions.*;
 import static com.example.sktestpost.common.constants.Constants.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
-
-import com.example.sktestpost.common.config.security.userdetails.CustomUserDetailsService;
-import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
-import com.example.sktestpost.common.dto.request.DeletePostReqDTO;
-import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
-import com.example.sktestpost.common.dto.response.CreatePostResDTO;
-import com.example.sktestpost.common.dto.response.GetPostListResDTO;
-import com.example.sktestpost.common.dto.response.GetPostResDTO;
-import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
-import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
-import com.example.sktestpost.domain.Member;
-import com.example.sktestpost.infra.adapter.out.jpa.MemberJpaRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,6 +22,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.example.sktestpost.common.config.security.userdetails.CustomUserDetailsService;
+import com.example.sktestpost.common.dto.request.CreatePostReqDTO;
+import com.example.sktestpost.common.dto.request.UpdatePostReqDTO;
+import com.example.sktestpost.common.dto.response.CreatePostResDTO;
+import com.example.sktestpost.common.dto.response.GetPostListResDTO;
+import com.example.sktestpost.common.dto.response.GetPostResDTO;
+import com.example.sktestpost.common.dto.response.GetSearchPostListResDTO;
+import com.example.sktestpost.common.dto.response.UpdatePostResDTO;
+import com.example.sktestpost.domain.Member;
+import com.example.sktestpost.infra.adapter.out.jpa.MemberJpaRepository;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -114,12 +113,9 @@ class PostFacadeTest {
 		CreatePostResDTO createdPost = createPost();
 		Long postId = createdPost.getPostId();
 		String writerAccountId = createdPost.getWriterAccountId();
-		DeletePostReqDTO deletePostReqDTO = new DeletePostReqDTO();
-		deletePostReqDTO.setPostId(postId);
-		deletePostReqDTO.setWriterAccountId(writerAccountId);
 
 		// when
-		postFacade.deletePost(deletePostReqDTO);
+		postFacade.deletePost(postId);
 
 		// then
 		assertThatException().isThrownBy(() -> postFacade.getPost(postId));
