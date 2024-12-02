@@ -18,8 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import com.example.sktestpost.common.config.security.filter.CustomLogoutFilter;
 import com.example.sktestpost.common.config.security.filter.JwtFilter;
 import com.example.sktestpost.common.utils.JwtUtils;
+import com.example.sktestpost.infra.adapter.out.jpa.RefreshJpaRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -29,14 +31,17 @@ public class SecurityConfig {
 
 	private final AuthenticationConfiguration authenticationConfiguration;
 	private final JwtUtils jwtUtils;
+	private final RefreshJpaRepository refreshJpaRepository;
 	private static final String[] AUTH_PERMITTED_LIST = {
 		"/swagger-ui/**", "swagger-ui.html/**", "/v3/**", "/members/join", "/members/login"
 	};
 
 	@Autowired
-	public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JwtUtils jwtUtils) {
+	public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JwtUtils jwtUtils,
+		RefreshJpaRepository refreshJpaRepository) {
 		this.authenticationConfiguration = authenticationConfiguration;
 		this.jwtUtils = jwtUtils;
+		this.refreshJpaRepository = refreshJpaRepository;
 	}
 
 	@Bean
@@ -66,7 +71,8 @@ public class SecurityConfig {
 				.anyRequest()
 				.authenticated()
 			)
-			.addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(new JwtFilter(jwtUtils, refreshJpaRepository), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(new CustomLogoutFilter(jwtUtils, refreshJpaRepository), JwtFilter.class)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();
 	}

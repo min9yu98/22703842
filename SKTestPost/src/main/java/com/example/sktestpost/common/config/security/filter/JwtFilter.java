@@ -1,22 +1,25 @@
 package com.example.sktestpost.common.config.security.filter;
 
-import static jakarta.servlet.http.HttpServletResponse.*;
 import static com.example.sktestpost.common.constants.JwtConstants.*;
+import static jakarta.servlet.http.HttpServletResponse.*;
 import static org.springframework.http.HttpHeaders.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.example.sktestpost.common.config.security.userdetails.CustomUserDetails;
-import com.example.sktestpost.common.response.error.ErrorCode;
-import com.example.sktestpost.common.response.exception.IllegalAccessException;
-import com.example.sktestpost.common.utils.JwtUtils;
-import com.example.sktestpost.domain.Member;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.example.sktestpost.common.config.security.userdetails.CustomUserDetails;
+import com.example.sktestpost.common.entity.Refresh;
+import com.example.sktestpost.common.response.error.ErrorCode;
+import com.example.sktestpost.common.response.exception.IllegalAccessException;
+import com.example.sktestpost.common.response.exception.LogoutUserException;
+import com.example.sktestpost.common.utils.JwtUtils;
+import com.example.sktestpost.domain.Member;
+import com.example.sktestpost.infra.adapter.out.jpa.RefreshJpaRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -28,9 +31,11 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtFilter extends OncePerRequestFilter {
 
 	private final JwtUtils jwtUtils;
+	private final RefreshJpaRepository refreshJpaRepository;
 
-	public JwtFilter(JwtUtils jwtUtils) {
+	public JwtFilter(JwtUtils jwtUtils, RefreshJpaRepository refreshJpaRepository) {
 		this.jwtUtils = jwtUtils;
+		this.refreshJpaRepository = refreshJpaRepository;
 	}
 
 	@Override
@@ -85,6 +90,8 @@ public class JwtFilter extends OncePerRequestFilter {
 	}
 
 	private void isLogoutMember(String memberAccountId) {
-		// TODO 로그아웃된 회원인지 확인하는 로직 추가
+		log.info("logout check");
+		Refresh refresh = refreshJpaRepository.findByMemberAccountId(memberAccountId)
+			.orElseThrow(() -> new LogoutUserException("Logout User", ErrorCode.LOGOUT_USER));
 	}
 }
