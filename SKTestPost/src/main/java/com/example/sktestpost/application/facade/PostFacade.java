@@ -95,6 +95,7 @@ public class PostFacade implements PostUseCase {
 			.createdAt(gettingPost.getCreatedAt().toLocalDate())
 			.viewCount(gettingPost.getViewCount())
 			.content(gettingPost.getContent())
+			.isMine(gettingPost.getMember().getId().equals(memberService.getCurrentMember().getId()))
 			.build();
 	}
 
