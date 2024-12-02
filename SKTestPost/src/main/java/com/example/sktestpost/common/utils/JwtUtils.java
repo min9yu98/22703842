@@ -45,7 +45,7 @@ public class JwtUtils {
 	}
 
 	public String generateRefreshToken(String accountId, String role) {
-		return BEARER.getContent() + Jwts.builder()
+		return Jwts.builder()
 			.claim("accountId", accountId)
 			.claim("role", role)
 			.claim("tokenType", REFRESH_TOKEN.getContent())
@@ -90,6 +90,16 @@ public class JwtUtils {
 			.parseSignedClaims(token)
 			.getPayload()
 			.get("tokenType", String.class);
+	}
+
+	public Long getRefreshTokenExpTimeByToken(String token) {
+		return Jwts.parser()
+			.verifyWith(secretKey)
+			.build()
+			.parseSignedClaims(token)
+			.getPayload()
+			.getExpiration()
+			.getTime();
 	}
 
 }
