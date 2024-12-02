@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PageHome from '@/views/PageHome.vue'
 import PostList from '@/views/post/PostList.vue'
 import PostDetail from '@/views/post/PostDetail.vue'
-
+import PostWrite from '@/views/post/PostWrite.vue'
 const routes = [
     {
         path: '/',
@@ -23,6 +23,11 @@ const routes = [
         path: '/post/detail',
         name: 'PostDetail',
         component: PostDetail
+    },
+    {
+        path: '/post/write',
+        name: 'PostWrite',
+        component: PostWrite
     }
 ]
 

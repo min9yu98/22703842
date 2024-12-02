@@ -6,20 +6,15 @@
         <button type="button" class="w3-button w3-round w3-gray" v-on:click="fnList">목록</button>&nbsp;
       </div>
       <div class="post-contents">
-        <h3>{{ title }}</h3>
+        <h3>제목 : {{ title }}</h3>
         <div>
-          <strong class="w3-large">{{ writerAccountId }}</strong>
+          <span>작성자 : {{ writerAccountId }}</span>
           <br>
-          <span>{{ createdAt }}</span>
+          <span>작성일 : {{ createdAt }}  /  조회수 : {{ viewCount }}</span>
         </div>
       </div>
       <div class="post-contents">
         <span>{{ content }}</span>
-      </div>
-      <div class="common-buttons">
-        <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnUpdate">수정</button>&nbsp;
-        <button type="button" class="w3-button w3-round w3-blue-red" v-on:click="fnDelete">삭제</button>&nbsp;
-        <button type="button" class="w3-button w3-round w3-gray" v-on:click="fnList">목록</button>&nbsp;
       </div>
     </div>
   </template>

@@ -2,7 +2,7 @@
 <template>
     <hr/>
     <footer>
-      여기는 footer 자리입니다.
+      SK M&Service 과제 전형 프로젝트
     </footer>
 </template>
 

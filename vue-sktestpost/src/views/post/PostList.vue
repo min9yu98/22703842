@@ -6,7 +6,6 @@
       <table class="w3-table-all">
         <thead>
           <tr>
-            <th>No</th>
             <th>제목</th>
             <th>작성자 ID</th>
             <th>조회수</th>
@@ -16,7 +15,6 @@
         </thead>
         <tbody>
           <tr v-for="row in list" :key="row.postId">
-            <td>{{ row.postId }}</td>
             <td><a @click="fnView(`${row.postId}`)">{{ row.title }}</a></td>
             <td>{{ row.writerAccountId }}</td>
             <td>{{ row.postViewCount }}</td>
@@ -64,7 +62,7 @@
       },
       fnWrite() {
         this.$router.push({
-          path: '/posts'
+          path: './write'
         })
       }
     },
