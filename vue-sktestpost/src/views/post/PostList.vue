@@ -1,6 +1,6 @@
 <template>
     <div class="post-list">
-      <div class="common-buttons">
+      <div class="common-buttons" v-if="isLogin">
         <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnWrite">등록</button>
       </div>
       <table class="w3-table-all">
@@ -83,6 +83,11 @@
   
 <script>
 export default {
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    }
+  },
 data() {
     return {
         list: [],
