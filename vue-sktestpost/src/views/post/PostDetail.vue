@@ -1,8 +1,10 @@
 <template>
     <div class="post-detail">
       <div class="common-buttons">
-        <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnUpdate">수정</button>&nbsp;
-        <button type="button" class="w3-button w3-round w3-blue-red" v-on:click="fnDelete">삭제</button>&nbsp;
+        <template v-if="isWriter">
+          <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnUpdate">수정</button>&nbsp;
+          <button type="button" class="w3-button w3-round w3-blue-red" v-on:click="fnDelete">삭제</button>&nbsp;
+        </template>
         <button type="button" class="w3-button w3-round w3-gray" v-on:click="fnList">목록</button>&nbsp;
       </div>
       <div class="post-contents">
@@ -32,6 +34,11 @@
         content: ''
       }
     },
+    computed: {
+      isWriter() {
+        return this.$store.state.memberId === this.writerAccountId;
+      }
+    },
     mounted() {
       this.fnGetView()
     },
@@ -51,6 +58,7 @@
                     this.content = post.content
                 }
             })
+            console.log(this.currentAccountId)
         } catch (err) {
             alert('데이터를 불러오는데 실패했습니다.')
         }
