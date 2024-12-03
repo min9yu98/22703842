@@ -8,15 +8,56 @@
             <input type="text" v-model="title" class="w3-input w3-border" placeholder="제목을 입력하세요.">
         </div>
         <div class="post-contents">
-            <textarea id="" cols="30" rows="10" v-model="content" class="w3-input w3-border" style="resize: none;"></textarea>
+            <quill-editor
+                :disabled="false"
+                :value="content"
+                :options="editorOption"
+                @change="onEditorChange"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @ready="onEditorReady($event)"
+            />
         </div>
     </div>
 </template>
 
 <script>
+import hljs from "highlight.js";
+import debounce from "lodash/debounce";
+
+// highlight.js style
+import "highlight.js/styles/tomorrow.css";
+
+// import theme style
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+
 export default {
     data() {
         return {
+            editorOption: {
+                placeholder: "내용을 입력하세요...",
+                modules: {
+                    toolbar: [
+                        ["bold", "italic", "underline", "strike"],
+                        ["blockquote", "code-block"],
+                        [{ header: 1 }, { header: 2 }],
+                        [{ list: "ordered" }, { list: "bullet" }],
+                        [{ script: "sub" }, { script: "super" }],
+                        [{ indent: "-1" }, { indent: "+1" }],
+                        [{ direction: "rtl" }],
+                        [{ size: ["small", false, "large", "huge"] }],
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                        [{ font: [] }],
+                        [{ color: [] }, { background: [] }],
+                        [{ align: [] }],
+                        ["link", "image", "video"],
+                    ],
+                    syntax: {
+                        highlight: (text) => hljs.highlightAuto(text).value,
+                    },
+                },
+            },
             requestBody: this.$route.query,
             postId: this.$route.query.postId,
             title: '',
@@ -30,6 +71,18 @@ export default {
         this.fnGetView()
     },
     methods: {
+        onEditorChange: debounce(function(value) {
+            this.content = value.html;
+        }, 466),
+        onEditorBlur(editor) {
+            console.log("editor blur!", editor);
+        },
+        onEditorFocus(editor) {
+            console.log("editor focus!", editor);
+        },
+        onEditorReady(editor) {
+            console.log("editor ready!", editor);
+        },
         fnGetView() {
             this.$axios.get(this.$serverUrl + '/posts/' + this.postId, {
                 params: this.requestBody
