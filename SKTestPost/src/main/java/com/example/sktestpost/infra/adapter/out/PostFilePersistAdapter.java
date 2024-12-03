@@ -1,5 +1,7 @@
 package com.example.sktestpost.infra.adapter.out;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.example.sktestpost.application.port.out.PostFilePersistOutPort;
@@ -27,5 +29,10 @@ public class PostFilePersistAdapter implements PostFilePersistOutPort {
 	@Override
 	public PostFile findByPostId(Long postId) {
 		return postFileJpaRepository.findByPostId(postId);
+	}
+
+	@Override
+	public List<PostFile> findAllByPostId(Long postId) {
+		return postFileJpaRepository.findAllByPostId(postId);
 	}
 }
