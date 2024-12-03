@@ -1,5 +1,7 @@
 package com.example.sktestpost.application.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.sktestpost.application.port.out.PostFilePersistOutPort;
@@ -29,5 +31,9 @@ public class PostFileService {
 	public void deletePostFile(Long postId, String fileUrl) {
 		PostFile deletingPostFile = postFilePersistOutPort.findByPostId(postId);
 		deletingPostFile.delete();
+	}
+
+	public List<PostFile> findAllByPostId(Long postId) {
+		return postFilePersistOutPort.findAllByPostId(postId);
 	}
 }

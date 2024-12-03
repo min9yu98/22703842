@@ -1,5 +1,6 @@
 package com.example.sktestpost.application.facade;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import com.example.sktestpost.common.response.error.ErrorCode;
 import com.example.sktestpost.common.response.exception.IllegalAccessException;
 import com.example.sktestpost.domain.Member;
 import com.example.sktestpost.domain.Post;
+import com.example.sktestpost.domain.PostFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -72,8 +74,13 @@ public class PostFacade implements PostUseCase {
 	@Override
 	public DeletePostResDTO deletePost(Long postId) {
 		Post deletingPost = postService.getPost(postId);
-		deletingPost.delete();
 		isPostWriter(deletingPost.getMember().getId());
+		deletingPost.delete();
+		List<PostFile> deletingPostFile = postFileService.findAllByPostId(postId);
+		deletingPostFile.forEach(postFile -> {
+			postFile.delete();
+			s3Service.deletePostFile(postFile.getPostFileUrl());
+		});
 		return DeletePostResDTO.builder()
 			.postId(postId)
 			.build();
