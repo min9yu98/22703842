@@ -16,10 +16,10 @@
         <tbody>
           <tr v-for="row in list" :key="row.postId">
             <td><a @click="fnView(row.postId)">{{ row.title }}</a></td>
-            <td>{{ row.writerAccountId }}</td>
-            <td>{{ row.postViewCount }}</td>
-            <td>{{ row.postFileState ? 'O' : 'X' }}</td>
-            <td>{{ row.createdAt }}</td>
+            <td><a @click="fnView(row.postId)">{{ row.writerAccountId }}</a></td>
+            <td><a @click="fnView(row.postId)">{{ row.postViewCount }}</a></td>
+            <td><a @click="fnView(row.postId)">{{ row.postFileState ? 'O' : 'X' }}</a></td>
+            <td><a @click="fnView(row.postId)">{{ row.createdAt }}</a></td>
           </tr>
         </tbody>
       </table>

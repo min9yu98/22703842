@@ -27,11 +27,6 @@ const routes = [
         component: MemberLogin
     },
     {
-        path: '/about',
-        name: 'PageAbout',
-        component: () => import('../views/PageAbout.vue')
-    },
-    {
         path: '/post/list',
         name: 'PostList',
         component: PostList

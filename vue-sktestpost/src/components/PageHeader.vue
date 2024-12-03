@@ -6,7 +6,6 @@
         </div>
         <div id="nav">
             <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link> |
             <router-link to="/post/list">게시판</router-link> |
             <template v-if="!this.$store.state.isLogin">
                 <router-link to="/member/login">로그인</router-link>

@@ -115,7 +115,7 @@ export default {
                 }
             })
         },
-        fnSave() {
+        async fnSave() {
             let apiUrl = this.$serverUrl + "/posts"
             this.form = {
                 "postId": this.postId,
@@ -126,27 +126,115 @@ export default {
                 "viewCount": this.viewCount
             }
 
-            if (this.postId === undefined) {
-                this.$axios.post(apiUrl, this.form).then((res) => {
-                    if (res.data.code === 1000) {
-                        alert('저장되었습니다.')
-                        this.fnView(res.data.data.postId)
+            try {
+                let response;
+                if (this.postId === undefined) {
+                    // 새 게시글 작성
+                    response = await this.$axios.post(apiUrl, this.form);
+                    if (response.data.code === 1000) {
+                        const savedPostId = response.data.data.postId;
+                
+                        // content에서 base64 형식의 이미지/비디오 데이터 추출
+                        const files = this.extractFilesFromContent();
+                        
+                        // 파일이 있다면 업로드
+                        if (files.length > 0) {
+                            for (const file of files) {
+                                const formData = new FormData();
+                                formData.append('file', file);
+                                
+                                await this.$axios.post(
+                                    `${this.$serverUrl}/posts/files/${savedPostId}`,
+                                    formData,
+                                    {
+                                        headers: {
+                                            'Content-Type': 'multipart/form-data'
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                        alert('저장되었습니다.');
+                        this.fnView(savedPostId);
                     }
-                }).catch((err) => {
-                    console.log(err)
-                })
-            } else {
-                this.$axios.patch(apiUrl, this.form).then((res) => {
-                    if (res.data.code === 1000) {
-                        alert('저장되었습니다.')
-                        this.fnView(res.data.data.postId)
+                } else {
+                    // 게시글 수정
+                    response = await this.$axios.patch(apiUrl, this.form);
+                    if (response.data.code === 1000) {
+                        // 수정 시에도 동일한 파일 업로드 로직 적용
+                        const files = this.extractFilesFromContent();
+                
+                        if (files.length > 0) {
+                            for (const file of files) {
+                                const formData = new FormData();
+                                formData.append('file', file);
+                                
+                                await this.$axios.post(
+                                    `${this.$serverUrl}/posts/files/${this.postId}`,
+                                    formData,
+                                    {
+                                        headers: {
+                                            'Content-Type': 'multipart/form-data'
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                
+                        alert('수정되었습니다.');
+                        this.fnView(this.postId);
                     }
-                }).catch((err) => {
-                    console.log(err)
-                })
+                }
+            } catch (err) {
+                console.error('저장 실패:', err);
+                alert('저장에 실패했습니다.');
             }
-        }
+        },
+        // content에서 파일 데이터 추출하는 메서드
+        extractFilesFromContent() {
+            const files = [];
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = this.content;
 
+            // 이미지 파일 추출
+            const images = tempDiv.getElementsByTagName('img');
+            for (const img of images) {
+                const src = img.getAttribute('src');
+                if (src && src.startsWith('data:')) {
+                    // base64 데이터를 파일로 변환
+                    const file = this.dataURLtoFile(src, 'image.png');
+                    files.push(file);
+                }
+            }
+
+            // 비디오 파일 추출
+            const videos = tempDiv.getElementsByTagName('video');
+            for (const video of videos) {
+                const src = video.getAttribute('src');
+                if (src && src.startsWith('data:')) {
+                    // base64 데이터를 파일로 변환
+                    const file = this.dataURLtoFile(src, 'video.mp4');
+                    files.push(file);
+                }
+            }
+
+            return files;
+        },
+
+        // base64 데이터를 File 객체로 변환하는 메서드
+        dataURLtoFile(dataurl, filename) {
+            const arr = dataurl.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bstr = atob(arr[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            
+            while(n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            
+            return new File([u8arr], filename, {type: mime});
+        }
     }
 }
 </script>
