@@ -18,7 +18,7 @@ public class PostFilePersistAdapter implements PostFilePersistOutPort {
 
 	@Override
 	public boolean isExistPostFile(Long postId) {
-		return postFileJpaRepository.existsById(postId);
+		return postFileJpaRepository.existsByPostId(postId);
 	}
 
 	@Override

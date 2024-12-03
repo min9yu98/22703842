@@ -10,4 +10,6 @@ public interface PostFileJpaRepository extends JpaRepository<PostFile, Long> {
 	PostFile findByPostId(Long postId);
 
 	List<PostFile> findAllByPostId(Long postId);
+
+	boolean existsByPostId(Long postId);
 }
