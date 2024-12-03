@@ -2,20 +2,17 @@
   <PageHeader/>
   <router-view/>
   <PageFooter/>
-  <LoadingBar :loading="this.$store.state.loadingStatus"/>
 </template>
 
 <script>
 import PageHeader from "@/components/PageHeader"
 import PageFooter from "@/components/PageFooter"
-import LoadingBar from "@/views/common/LoadingBar"
 
 export default {
   name: 'App',
   components: {
     PageFooter,
-    PageHeader,
-    LoadingBar
+    PageHeader
   }
 }
 </script>

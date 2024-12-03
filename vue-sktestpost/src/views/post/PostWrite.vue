@@ -150,5 +150,48 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
+.post-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post-contents {
+    margin-bottom: 20px;
+}
+
+/* Quill 에디터 관련 스타일 */
+.quill-editor {
+    height: 400px;
+}
+
+.ql-container {
+    height: calc(100% - 42px) !important;
+}
+
+.ql-editor {
+    height: 100%;
+    min-height: 300px;
+    padding: 12px 15px;
+}
+
+.ql-container.ql-snow {
+    border: 1px solid #ccc;
+}
+
+.ql-toolbar.ql-snow {
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
+
+/* 에디터 내용 영역 스타일 */
+.ql-editor p {
+    margin-bottom: 0.5em;
+}
+
+/* 로딩 인디케이터 숨기기 */
+.ql-container.ql-loading {
+    visibility: hidden;
+}
 </style>
