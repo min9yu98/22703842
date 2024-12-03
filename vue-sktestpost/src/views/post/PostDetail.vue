@@ -82,5 +82,57 @@
   }
   </script>
   
-  <style scoped>
+  <style>
+  /* scoped 제거하고 전역 스타일로 설정 */
+  .post-detail {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+  
+  .post-contents {
+      margin-bottom: 20px;
+  }
+  
+  /* 컨텐츠 영역 스타일 */
+  .content-area {
+      width: 100%;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+  }
+  
+  /* 이미지 스타일 */
+  .content-area img {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+      display: block;
+  }
+  
+  /* 비디오 스타일 */
+  .content-area video {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+      display: block;
+  }
+  
+  /* 텍스트 스타일 */
+  .content-area p {
+      margin-bottom: 1em;
+      line-height: 1.6;
+  }
+  
+  /* 제목 스타일 */
+  .post-contents h3 {
+      margin-bottom: 15px;
+      color: #333;
+  }
+  
+  /* 작성자 정보 스타일 */
+  .post-contents span {
+      color: #666;
+      font-size: 0.9em;
+  }
   </style>
