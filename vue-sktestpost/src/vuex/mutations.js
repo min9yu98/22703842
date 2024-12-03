@@ -9,8 +9,5 @@ export default {
     },
     [types.IS_AUTH](state, isAuth) {
         state.isAuth = isAuth
-    },
-    [types.LOADING_STATUS](state, loadingStatus) { 
-        state.loadingStatus = loadingStatus
     }
 }
