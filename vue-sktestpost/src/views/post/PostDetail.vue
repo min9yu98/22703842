@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="post-contents">
-        <span>{{ content }}</span>
+        <div v-html="content" class="content-area"></div>
       </div>
     </div>
   </template>
