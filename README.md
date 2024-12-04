@@ -49,6 +49,8 @@ SK M&Service 코딩 테스트인 게시판 개발 과제입니다.
 <br/>
 
 ## 2-4. 헥사고날 아키텍처
+![스크린샷 2024-12-04 19 16 14](https://github.com/user-attachments/assets/1416e7ca-cc55-4397-bcbd-1bd4f26b79cc)
+<br/>
 
 # 3. 프로젝트 관리
 ## 3-1. Git을 활용한 버전 관리
