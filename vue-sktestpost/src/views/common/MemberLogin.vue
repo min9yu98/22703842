@@ -47,7 +47,7 @@ export default {
         this.$store.commit('setIsLogin', true);
         this.$store.commit('setMemberId', this.accountId);
 
-        if (loginResult) alert('로그인 결과 : ' + loginResult)
+        if (loginResult) alert('로그인 성공!')
       } catch (err) {
         if (err.message.indexOf('Network Error') > -1) {
           alert('서버에 접속할 수 없습니다. 상태를 확인해주세요.')
