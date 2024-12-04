@@ -6,7 +6,7 @@ const getMemberInfo = (accountId, accountPwd) => {
       'accountId': accountId,
       'accountPwd': accountPwd
     }
-    let serverUrl = '//localhost:8081'
+    let serverUrl = '//localhost:8080'
 
     return axios.post(serverUrl + "/members/login", reqData, {
         headers: {
@@ -24,7 +24,6 @@ const getMemberInfo = (accountId, accountPwd) => {
           return 'notFound'
         } else {
             localStorage.setItem('user_token', memberInfoResponse.headers['access-token'])
-            // localStorage.setItem('user_role', memberInfoResponse.data.user_role)
             return memberInfoResponse
         }
       } catch (err) {

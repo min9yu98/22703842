@@ -15,6 +15,6 @@ import 'quill/dist/quill.bubble.css'
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios
-app.config.globalProperties.$serverUrl = '//localhost:8081'
+app.config.globalProperties.$serverUrl = '//localhost:8080'
 app.config.globalProperties.$store = store
 app.use(router).use(store).use(quillEditor).mount('#app')
