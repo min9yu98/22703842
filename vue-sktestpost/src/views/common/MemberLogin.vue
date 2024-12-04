@@ -43,8 +43,10 @@ export default {
       }
       try {
         let loginResult = await this.login({accountId: this.accountId, accountPwd: this.accountPwd})
-        this.$store.state.isLogin = true
-        this.$store.state.memberId = this.accountId
+        // commit을 사용하여 상태 변경
+        this.$store.commit('setIsLogin', true);
+        this.$store.commit('setMemberId', this.accountId);
+
         if (loginResult) alert('로그인 결과 : ' + loginResult)
       } catch (err) {
         if (err.message.indexOf('Network Error') > -1) {
