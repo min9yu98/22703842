@@ -43,6 +43,18 @@
         <div>
           <h3 id="1-1">1-1. 프로젝트 소개</h3>
           <p>{{ overview.intro }}</p>
+          <p>테스트 계정은 아래와 같습니다.</p>
+          <ul>
+            <li>사용자 1</li>
+            <li>아이디: admin1</li>
+            <li>비밀번호: admin1</li>
+          </ul>
+          
+          <ul>
+            <li>사용자 2</li>
+            <li>아이디: admin2</li>
+            <li>비밀번호: admin2</li>
+          </ul>
         </div>
         <br />
         <div>
