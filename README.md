@@ -20,7 +20,7 @@ SK M&Service 코딩 테스트인 게시판 개발 과제입니다.
 
 ## 1.2. 개발환경
 - Front-end : `Vue Js`
-- Back-end : `java 17`, `Spring Boot 3.4.0`, `Spring Data Jpa`, `Spring Security`, `H2 Database`, `Redis (Redisson)`, `AWS S3`
+- Back-end : `java 17`, `Spring Boot 3.4.0`, `Spring Data Jpa`, `Spring Security`, `Gradle`, `H2 Database`, `Redis (Redisson)`, `AWS S3`
 
 ## 1-3. 구현 기능
 - 로그인
