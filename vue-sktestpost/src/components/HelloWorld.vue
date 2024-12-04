@@ -5,6 +5,18 @@
       <h1>Project Documentation</h1>
     </header>
 
+    <!-- Applicant Information -->
+    <section class="applicant-info">
+      <h2>지원자 기본정보</h2>
+      <ul>
+        <li><strong>이름:</strong> 김민규</li>
+        <li><strong>생년월일:</strong> 1998.11.03</li>
+        <li><strong>이메일:</strong> kimmingyu9811@gmail.com</li>
+        <li><strong>최종학력:</strong> 대학(학사)</li>
+        <li><strong>전공:</strong> 컴퓨터정보공학부</li>
+      </ul>
+    </section>
+
     <!-- Table of Contents -->
     <nav class="table-of-contents">
       <h2>Table of Contents</h2>
@@ -32,14 +44,14 @@
           <h3 id="1-1">1-1. 프로젝트 소개</h3>
           <p>{{ overview.intro }}</p>
         </div>
-        <br/>
+        <br />
         <div>
           <h3 id="1-2">1-2. 개발환경</h3>
           <ul>
             <li v-for="env in overview.environments" :key="env">{{ env }}</li>
           </ul>
         </div>
-        <br/>
+        <br />
         <div>
           <h3 id="1-3">1-3. 구현 기능</h3>
           <ul>
@@ -47,31 +59,31 @@
           </ul>
         </div>
       </section>
-      <br/>
-      <br/>
+      <br />
+      <br />
       <section id="2">
         <h2>2. 프로젝트 설계</h2>
         <div>
           <h3 id="2-1">2-1. ERD 다이어그램</h3>
           <img :src="design.erdDiagram" alt="ERD Diagram" />
         </div>
-        <br/>
+        <br />
         <div>
           <h3 id="2-2">2-2. 유즈케이스 다이어그램</h3>
           <img :src="design.useCaseDiagram" alt="Use Case Diagram" />
         </div>
-        <br/>
+        <br />
         <div>
           <h3 id="2-3">2-3. 어플리케이션 아키텍처</h3>
           <img :src="design.applicationArchitecture" alt="Application Architecture" />
         </div>
-        <br/>
+        <br />
         <div>
           <h3 id="2-4">2-4. 헥사고날 아키텍처</h3>
           <img :src="design.hexagonalArchitecture" alt="Hexagonal Architecture" />
         </div>
-        <br/>
-        <br/>
+        <br />
+        <br />
       </section>
 
       <section id="3">
@@ -82,8 +94,8 @@
           <ul>
             <li v-for="desc in management.gitDescription" :key="desc">{{ desc }}</li>
           </ul>
-        </div>  
-        <br/>
+        </div>
+        <br />
         <div>
           <h3 id="3-2">3-2. Postman을 활용한 API 테스트</h3>
           <img :src="management.postmanDiagram" alt="Postman Testing" />
@@ -99,34 +111,34 @@ export default {
   data() {
     return {
       overview: {
-      intro: "SK M&Service 코딩 테스트인 게시판 개발 과제입니다.",
-      environments: [
-        "• Front-end: Vue Js",
-        "• Back-end: Java 17, Spring Boot 3.4.0, Spring Data JPA, Spring Security, H2 Database, Redis (Redisson), AWS S3"
-      ],
-      features: [
-        "• 로그인",
-        "• 로그아웃",
-        "• 게시판 목록 조회 (등록일 역순, 검색 조회)",
-        "• 게시판 상세 조회",
-        "• 게시판 작성 (파일 첨부)",
-        "• 게시물 수정/삭제"
-      ]
-    },
+        intro: "SK M&Service 코딩 테스트인 게시판 개발 과제입니다.",
+        environments: [
+          "• Front-end: Vue Js",
+          "• Back-end: Java 17, Spring Boot 3.4.0, Spring Data JPA, Spring Security, H2 Database, Redis (Redisson), AWS S3"
+        ],
+        features: [
+          "• 로그인",
+          "• 로그아웃",
+          "• 게시판 목록 조회 (등록일 역순, 검색 조회)",
+          "• 게시판 상세 조회",
+          "• 게시판 작성 (파일 첨부)",
+          "• 게시물 수정/삭제"
+        ]
+      },
       design: {
-        erdDiagram: require("@/assets/erd_diagram.png"), // ERD 다이어그램
-        useCaseDiagram: require("@/assets/usecase_diagram.png"), // 유즈케이스 다이어그램
-        applicationArchitecture: require("@/assets/application_architecture.png"), // 어플리케이션 아키텍처
-        hexagonalArchitecture: require("@/assets/hexagonal_architecture.png") // 헥사고날 아키텍처
+        erdDiagram: require("@/assets/erd_diagram.png"),
+        useCaseDiagram: require("@/assets/usecase_diagram.png"),
+        applicationArchitecture: require("@/assets/application_architecture.png"),
+        hexagonalArchitecture: require("@/assets/hexagonal_architecture.png")
       },
       management: {
-        gitDiagram: require("@/assets/github.png"), // Git 다이어그램
+        gitDiagram: require("@/assets/github.png"),
         gitDescription: [
           "• Git을 활용하여 각 특성에 맞는 브랜치(feat, fix, chore, refactor 등) 별로 브랜치를 생성한 후 작업 완료시 dev 브랜치에 병합합니다.",
           "• 기능 구현 완료 후 release/0.0.1 브랜치에 dev 브랜치 작업물을 병합한 후, main 브랜치에 release/0.0.1 브랜치 작업물을 병합합니다.",
           "• 만약 release 브랜치에서 변경 사항 발생 시 dev, main 브랜치에 병합합니다."
         ],
-        postmanDiagram: require("@/assets/postman.png"), // Postman 다이어그램
+        postmanDiagram: require("@/assets/postman.png"),
         postmanDescription:
           "자유로운 API 테스트를 위해 Postman을 활용하여 API 테스트를 진행합니다. (현재 Swagger의 프로젝트 미인식 에러 발생으로 인해 사용할 수 없는 상태입니다.)"
       }
@@ -150,6 +162,26 @@ export default {
   text-align: center;
 }
 
+.applicant-info {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.applicant-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.applicant-info li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
 .table-of-contents {
   margin: 20px auto;
   max-width: 800px;
@@ -168,14 +200,13 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 기본 이미지 스타일 */
 img {
   display: block;
   margin: 20px auto;
   border: 1px solid #ccc;
   border-radius: 4px;
-  max-width: 50%;  /* 컨테이너의 80%로 제한 */
-  height: auto;    /* 비율 유지 */
+  max-width: 50%;
+  height: auto;
 }
 
 ul {
@@ -188,25 +219,22 @@ li {
   line-height: 1.6;
 }
 
-/* 다이어그램별 특정 크기 설정 */
-#2-1 img {  /* ERD 다이어그램 */
+#2-1 img {
   max-width: 70%;
 }
 
-#2-2 img {  /* 유즈케이스 다이어그램 */
+#2-2 img {
   max-width: 60%;
 }
 
-#2-3 img, #2-4 img {  /* 아키텍처 다이어그램 */
+#2-3 img, #2-4 img {
   max-width: 65%;
 }
 
-/* 프로젝트 관리 섹션의 이미지 */
 #3 img {
   max-width: 50%;
 }
 
-/* 이미지 호버 효과 (선택사항) */
 img:hover {
   transform: scale(1.02);
   transition: transform 0.3s ease;
