@@ -21,21 +21,28 @@
 <script>
 export default {
     methods: {
-        fnLogout() {
-            const token = localStorage.getItem("user_token")
-            console.log("token : " + token)
-            this.$axios.post(this.$serverUrl + "/members/logout", null, {
-                headers: {
-                    'Authorization': token
+        async fnLogout() {
+            try{
+                const token = localStorage.getItem("user_token")
+                if (!token) {
+                    alert('이미 로그아웃 되었거나 세션이 만료되었습니다.');
+                    this.$router.push('/member/login');
+                    return;
                 }
-            }).then(() => {
-                this.$store.state.isLogin = false
-                localStorage.removeItem("user_token")
-                location.reload()
-            }).catch((err) => {
+                await this.$axios.post(this.$serverUrl + "/members/logout", null, {
+                    headers: {
+                        'Authorization': token
+                    }
+                })
+                this.$store.commit('logout')
+                localStorage.clear()
+                this.$router.push('/member/login');
+            } catch (err) {
                 console.error('로그아웃 에러:', err)
+                this.$store.commit('logout');
+                localStorage.clear();
                 alert('로그아웃 처리 중 오류가 발생했습니다.')
-            })
+            }
         }
     }
 }

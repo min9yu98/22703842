@@ -126,6 +126,15 @@ export default {
                 "viewCount": this.viewCount
             }
 
+            if (this.form.title === '') {
+                alert('제목을 입력하세요.')
+                return
+            }
+            if (this.form.content === '') {
+                alert('내용을 입력하세요.')
+                return
+            }
+
             try {
                 let response;
                 if (this.postId === undefined) {
