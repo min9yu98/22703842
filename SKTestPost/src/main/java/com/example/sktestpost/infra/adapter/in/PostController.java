@@ -59,6 +59,7 @@ public class PostController {
 	public ResponseEntity<ResultResponse> uploadPostFile(
 		@PathVariable(value = "postId") Long postId,
 		@RequestPart("file") MultipartFile file) {
+		log.info("upload post file");
 		UploadPostFileResDTO updatePostFileResDTO = postUseCase.uploadPostFile(postId, file);
 		return ResponseEntity.ok(new ResultResponse(updatePostFileResDTO));
 	}
