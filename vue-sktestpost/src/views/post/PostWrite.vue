@@ -51,7 +51,7 @@ export default {
                         [{ font: [] }],
                         [{ color: [] }, { background: [] }],
                         [{ align: [] }],
-                        ["link", "image", "file"],
+                        ["link", "image", "video"],
                     ],
                     syntax: {
                         highlight: (text) => hljs.highlightAuto(text).value,
