@@ -114,14 +114,14 @@ export default {
         intro: "SK M&Service 코딩 테스트인 게시판 개발 과제입니다.",
         environments: [
           "• Front-end: Vue Js",
-          "• Back-end: Java 17, Spring Boot 3.4.0, Spring Data JPA, Spring Security, H2 Database, Redis (Redisson), AWS S3"
+          "• Back-end: Java 17, Spring Boot 3.4.0, Spring Data JPA, Spring Security, Gradle, H2 Database, Redis (Redisson), AWS S3"
         ],
         features: [
           "• 로그인",
           "• 로그아웃",
           "• 게시판 목록 조회 (등록일 역순, 검색 조회)",
-          "• 게시판 상세 조회",
-          "• 게시판 작성 (파일 첨부)",
+          "• 게시판 상세 조회 (Redis Redisson Lock으로 조회수 동시성 제어)",
+          "• 게시판 작성 (AWS S3를 활용하여 이미지 첨부, pdf와 같은 파일 첨부 불가)",
           "• 게시물 수정/삭제"
         ]
       },
