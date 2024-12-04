@@ -33,7 +33,7 @@ public class SecurityConfig {
 	private final JwtUtils jwtUtils;
 	private final RefreshJpaRepository refreshJpaRepository;
 	private static final String[] AUTH_PERMITTED_LIST = {
-		"/swagger-ui/**", "swagger-ui.html/**", "/v3/**", "/members/join", "/members/login"
+		"/h2-console/**", "/swagger-ui/**", "swagger-ui.html/**", "/v3/**", "/members/join", "/members/login"
 	};
 
 	@Autowired
