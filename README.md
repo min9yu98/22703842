@@ -53,8 +53,15 @@ SK M&Service 코딩 테스트인 게시판 개발 과제입니다.
 # 3. 프로젝트 관리
 ## 3-1. Git을 활용한 버전 관리
 <img width="1329" alt="스크린샷 2024-12-04 18 45 55" src="https://github.com/user-attachments/assets/8628daaa-f2d4-426b-82b2-6ccb304784e0">
+
+- Git을 활용하여 각 특성에 맞는 브랜치(feat, fix, chore, refactor 등) 별로 브랜치를 생성한 후 작업 완료시 dev 브랜치에 병합합니다.
+- 기능 구현 완료 후 release/0.0.1 브랜치에 dev 브랜치 작업물을 병합한 후, main 브랜치에 release/0.0.1 브랜치 작업물을 병합합니다.
+- 만약 release 브랜치에서 변경 사항발생 시 dev, main 브랜치에 병합합니다.
 <br/>
 
 ## 3-2. Postman을 활용한 API 테스트
 <img width="1272" alt="스크린샷 2024-12-04 18 50 06" src="https://github.com/user-attachments/assets/4235d59e-a0af-408a-b790-810e145cecf1">
+
+- 자유로운 API 테스트를 위해 Postman을 활용하여 API 테스트를 진행합니다.
+- (현재 Swagger의 프로젝트 미인식 에러 발생으로 인해 사용할 수 없는 상태입니다.)
 <br/>
